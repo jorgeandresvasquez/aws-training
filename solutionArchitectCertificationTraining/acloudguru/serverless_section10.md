@@ -1,0 +1,80 @@
+## Lambda
+- Brief history of cloud:
+    - Data Centers-->IAAS (EC2)-->PAAS (Ex:  Elastic Beanstalk, cloud provider will provision all infrastructure around the code that you upload)-->Containers (Ex:  docker)-->Serverless (you only pay for execution time of your code)
+- Compute Service where you can upload your code and create a lambda function
+- Takes care of provisioning and managing the servers that you use to run the code
+- No need to worry about operating systems, patching, scaling, etc.
+- Usage patterns:
+    - Event-driven compute service responding to events such as data changes in S3 or DynamoDB
+    - Response to HTTP requests using Amazon API Gateway or API calls make using AWS SDKs
+- A lambda function can trigger another lambda function
+- A million users hitting lambda at once will trigger a million lambda functions
+- Traditional Architecture:
+    - User-->Route53-->EC2-->DB
+- Serverless Architecture:
+    - Api Gateway-->Lambda-->Persistence Store
+        - Lambda functions scale out instantly and automatically
+    - Aim for a serverless DB:  DynamoDB or Serverless Aurora 
+- Supported languages:
+    - Java, Go, PowerShell, Node.js, C#, Python, and Ruby code
+    - provides a Runtime API which allows you to use any additional programming languages to author your functions
+- Pricing:
+    - Number of requests:
+        - First 1 million are free
+        - $0.20/1 million requests
+    - Duration:
+        - Time your code begins executing until it returns or terminates, rounded up to the neares 100ms
+        - Price depends on amount of memory you allocate
+        - $0.000001667/GB-second
+- Why is lambda cool:
+    - No servers
+    - Continuous Scaling
+    - Very cheap
+- Lambda scales out (not up) automatically
+- Which AWS Services are serverless:
+    - Compute
+        - AWS Lambda
+        - Lambda@Edge
+        - AWS Fargate
+    - Storage
+        - S3
+        - EFT
+    - Data Stores
+        - DynamoDB
+        - Aurora Serverless
+    - API proxy
+        - API Gateway
+    - Application Integration
+        - SNS
+        - SQS
+        - AppSync
+        - EventBridge
+    - Orchestration
+        - Step Functions
+    - Analytics
+        - Kinesis
+        - Athena
+- Lambda triggers:
+    - Services that invoke lambda functions synchronously:
+        - ELB (ALB)
+        - Amazon Cognito
+        - Amazon Lex
+            - Amazon Lex is an AWS service for building conversational interfaces into applications using voice and text.
+        - Amazon Alexa
+        - Amazon API Gateway
+        - Amazon Cloudfront (Lambda@Edge)
+        - Amazon kinesis Data Firehose
+    - Services that invoke lambda functions asynchronously:
+        - S3
+        - SNS
+        - SES
+        - Cloudformation
+        - Cloudwatch Logs
+        - Cloudwatch Events
+        - CodeCommit
+        - AWS Config
+            - AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources.
+            - You can review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. 
+            - Enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting.
+
+

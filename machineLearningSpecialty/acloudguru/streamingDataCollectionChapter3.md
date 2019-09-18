@@ -1,0 +1,37 @@
+## Concepts
+- Static Data
+    - resources:
+        - wwww.kaggle.com
+        - registry.opendata.aws
+        - google big query
+- Streaming Data
+- Kinesis
+    - Family of tools
+    - 4 different services:
+        - Kinesis Data Streams
+        - Kinesis Data Firehose
+        - Kinesis Video Streams
+        - Kinesis Data Analytics
+
+## Kinesis Data Streams
+- Data Producers
+    - Examples:
+        - IOT Devices
+        - User interaction with online website
+- Shards
+    - Containers of Data
+    - Unique partition key for each shard
+    - 1-500 by default but more can be requested if needed
+    - Data record:
+        - Sequence number
+        - Partition key
+        - Data blob (payload up to 1 MB)
+    - Transient data store
+        - Data hold from 24 hours to 7 days
+- Data Consumers
+    - Processing Tools
+- Storage and Analysis
+- Interaction with Kinesis Data Streams
+    - Kinesis Producer Library (KPL)
+    - Kinesis Client Library (KCL)
+    - Kinesis API (AWS SDK)
