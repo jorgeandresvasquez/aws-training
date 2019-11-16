@@ -1,0 +1,52 @@
+## Tips
+- Key to passing exam is knowing IAM and knowing to read JSON policies inside out as well as KMS
+
+## Global Terms
+- Control Plane vs Data Plane:  
+    - In computing, the control plane is the part of the software that configures and shuts down the data plane.  By contrast, the data plane (the data plane is also sometimes referred to as the forwarding plane) is the part of the software that processes the data requests.  Data plane receives traffic and passes it on quickly and accurately.  Control plane focuses on how data is forwarded through the network (ex:  altering and filtering data such as firewalls, load balancers, etc.).  The control plain is the brain of the network.  Technologies for control plane and data plane can be developed independently.
+    - The distinction has proven useful in the networking field where it originated, as it separates the concerns: the data plane is optimized for speed of processing, and for simplicity and regularity. The control plane is optimized for customizability, handling policies, handling exceptional situations, and in general facilitating and simplifying the data plane processing.
+    -  https://www.youtube.com/watch?v=P9ZMugAf9lU
+    - When forwarding traffic we're using the data plane
+    - When generating or responding to traffic we're using the control plane
+- Ephemeral Ports
+    - Any connection is identified with combination of 4 basic identifiers.
+        1. Server IP address
+        2. Server port no
+        3. Client IP address
+        4. Client Port no
+    - This is also refereed as 4-tuple. when you initiate a connection lets say SSH connection you know 3 identifiers very well. IP address of the server you are requesting your connection to, IP address of the client you are requesting from, port no on the server you want to connect to(in this example you are requesting SSH on server on port 22 as few services are fixed to listen connection request on fixed port HTTP-80, SSH-22, etc).
+    - Based on the different scenarios of availability and other factors this Client port can be any available port from a free port range (ephemeral port range) which differs from OS to OS.
+    - So suppose you send a SSH request to you instance in AWS whose ACL allows inbound SSH connection on 22. You request has both the IPs of sender and receiver and a free port assigned by your client OS e.g. 45000. Now when your server receives it on port 22 it responds on port 45000. Suppose you have allowed port 22 in the outbound rule of ACL this SSH response on port-45000 will be blocked. To avoid this scenarios you put an TCP outbound rule in ACL with ephemeral port range as port because this response port could be anything in that range.
+
+## Exam Domains:
+- Domain 1: Incident Response
+    - % of examination: 12%
+    - Given an AWS abuse notice, evaluate the suspected compromised instance or exposed access keys.
+    - Verify that the Incident Response plan includes relevant AWS services.
+    - Evaluate the configuration of automated alerting, and execute possible remediation of security-related incidents and emerging issues.
+- Domain 2: Logging and Monitoring
+    - % of examination:  20%
+    - Design and implement security monitoring and alerting.
+    - Troubleshoot security monitoring and alerting.
+    - Design and implement a logging solution.
+    - Troubleshoot logging solutions.
+- Domain 3: Infrastructure Security
+    - % of examination:  26%
+    - Design edge security on AWS.
+    - Design and implement a secure network infrastructure.
+    - Troubleshoot a secure network infrastructure.
+    - Design and implement host-based security.
+- Domain 4: Identity and Access Management
+    - % of examination:  20%
+    - Design and implement a scalable authorization and authentication system to access AWS resources.
+    - Troubleshoot an authorization and authentication system to access AWS resources.
+- Domain 5: Data Protection
+    - % of examination:  22%
+    - Design and implement key management and use.
+    - Troubleshoot key management.
+    - Design and implement a data encryption solution for data at rest and data in transit.
+
+## Exam General information
+- 170 minutes to complete the exam
+
+- VPN uses IPSEC which operates at OSI layer 3 (Network)
