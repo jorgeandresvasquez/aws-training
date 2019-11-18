@@ -1,0 +1,34 @@
+## TODOs Before Exam
+
+- Register for a training plan with acloudguru
+    - https://learn.acloud.guru/course/aws-certified-security-specialty/dashboard
+- Study exam notes
+    - https://github.com/jorgeandresvasquez/aws-training/tree/master/securitySpecialtyTraining
+- Read FAQs for all security-related services
+    https://aws.amazon.com/faqs/ (See section:  Security, Identity & Compliance)
+- Take simulation exams
+    - whizlabs:
+        - https://www.whizlabs.com/learn/course/aws-certified-security-specialty
+    - acloud.guru Exam Simulator
+        - https://acloud.guru/exam-simulator/start?courseId=aws-certified-security-specialty
+- Read all white papers related to security
+    - Whitepapers (https://aws.amazon.com/whitepapers/):
+        - KMS Best Practices
+        - KMS Cryptographic Details
+        - DDOS Best Practices
+        - Logging in AWS
+        - Well-Architected Framework - Security Pillar
+- Watch AWS Videos on Security
+    - Reinvent Videos:
+        - Best Practices for Implementing your encryption strategy using AWS KMS:
+            - https://www.youtube.com/watch?v=X1eZjXQ55ec
+        - A Deep Dive into AWS Encryption Services:
+            - https://www.youtube.com/watch?v=gTZgxsCTfbk
+        - Best practices for DDoS mitigation on AWS:
+            - https://www.youtube.com/watch?v=HnoZS5jj7pk
+        - Become an IAM Policy Master in 60 Minutes or Less
+            - https://www.youtube.com/watch?v=YQsK4MtsELU
+        - VPC Fundamentals and Connectivity Options
+            - https://www.youtube.com/watch?v=jZAvKgqlrjY
+        - Advanced Security Best Practices on AWS
+            - https://www.youtube.com/watch?v=zU1x5SfKEzs

@@ -138,7 +138,7 @@ $ ssh ec2-user@18.221.84.193 -i private_key.pem
 
 ## AWS WAF & AWS Shield
 - AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPs requests that are forwarded to Amazon Cloudfront or an ALB.  AWS WAF also lets you control access to your content
-- WAF ONLY integrates with ALBs and Cloudfront, it does not integrate with EC2 directly, nor route53 or any other services
+- WAF ONLY integrates with ALBs, Cloudfront and Amazon API Gateway, it does not integrate with EC2 directly, nor route53 or any other services
 - You can configure conditions such as what IP addresses are allowed to make this request or what query string parameters need to be passed for the request to be allowed and then the application load balancer or cloudfront will either allow this content to be received or to give an HTTP 403 status code (Forbidden access)
 - At its most basic level, AWS WAF allows 3 different behaviours:
     1. Allow all requests except the ones that you specify
@@ -167,6 +167,24 @@ $ ssh ec2-user@18.221.84.193 -i private_key.pem
     - $3000/month if you want the advanced option
     - Advanced gives you an incident response team and in-depth reporting
     - You won't pay if you are a victim of an attack
+- WAF Visibility and Analytics
+    - Cloudwatch Metrics
+        - Metrics on every rule (allowed, blocked, counted, passed)
+    - Sampled Web Metrics
+        - Automatically Available for every rule
+        - Includes details of every request, along with all rules that match the request
+    - Full Logs (New feature)
+        - Provide detailed logs for every request
+        - Optionally enabled for your WebACL
+        - Streaming logs available through Amazon Kinesis Data Firehose
+            - Kinesis Data Firehose supports multiple destinations:
+                - S3
+                - Redshift
+                - Elastic Search
+                - Splunk
+        - Logs every request, contains all request headers, along with RuleIds that matched
+        - You can exclude certain fields from logs
+    - ![Sample WAF Security Analytics Architecture](images/sample_waf_security_analytics_architecture.png)
 
 ## EC2 dedicated instances vs dedicated hosts
 - Dedicated Instances:

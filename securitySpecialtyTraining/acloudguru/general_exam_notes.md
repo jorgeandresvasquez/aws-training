@@ -18,13 +18,19 @@
     - Based on the different scenarios of availability and other factors this Client port can be any available port from a free port range (ephemeral port range) which differs from OS to OS.
     - So suppose you send a SSH request to you instance in AWS whose ACL allows inbound SSH connection on 22. You request has both the IPs of sender and receiver and a free port assigned by your client OS e.g. 45000. Now when your server receives it on port 22 it responds on port 45000. Suppose you have allowed port 22 in the outbound rule of ACL this SSH response on port-45000 will be blocked. To avoid this scenarios you put an TCP outbound rule in ACL with ephemeral port range as port because this response port could be anything in that range.
 
+- VPN uses IPSEC which operates at OSI layer 3 (Network)
+
+- SIM:  Security information management is an information security industry term for the collection of data such as log files into a central repository for trend analysis.[1]
+
+- SIEM:  Security information and event management system.
+
 ## Exam Domains:
 - Domain 1: Incident Response
     - % of examination: 12%
     - Given an AWS abuse notice, evaluate the suspected compromised instance or exposed access keys.
     - Verify that the Incident Response plan includes relevant AWS services.
     - Evaluate the configuration of automated alerting, and execute possible remediation of security-related incidents and emerging issues.
-- Domain 2: Logging and Monitoring
+- Domain 2: Logging and Monitoring (Detective Controls)
     - % of examination:  20%
     - Design and implement security monitoring and alerting.
     - Troubleshoot security monitoring and alerting.
@@ -48,5 +54,12 @@
 
 ## Exam General information
 - 170 minutes to complete the exam
+- 65 questions
 
-- VPN uses IPSEC which operates at OSI layer 3 (Network)
+## AWS Cloud Adoption Framework
+- 5 core security capabilities:
+    1. Infrastructure Security
+    2. Identity and Access Management
+    3. Detective Controls
+    4. Data Protection
+    5. Incident Response
