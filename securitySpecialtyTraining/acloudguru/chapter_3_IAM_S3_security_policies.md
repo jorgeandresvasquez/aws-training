@@ -43,7 +43,7 @@
 - IAM Policies
     - Specify what you are allowed to do with any AWS resource
     - They are global and apply to all areas of AWS
-    - You can attack policies to users, groups or roles
+    - You can attach policies to users, groups or roles
         - These users, groups, and roles are subject to the permissions you define in the policy
     - 3 types of Identity-based policies:
         1. AWS managed policies
@@ -145,7 +145,7 @@
     - The IAM role must have permissions to replicate objects in the destination bucket
     - Use Case:  Cloudtrail audits, log everything to an S3 bucket in each account and turn cross region replication to replicate audit logs to another AWS account 
 - Delete markers are replicated, deleted versions of files are not
-- VVersioning must be enabled
+- Versioning must be enabled
 
 ## Forcing S3 to use Cloudfront
 - We don't want users to access the bucket using S3 bucket URL
@@ -226,14 +226,3 @@
     - Overrides any account local configuration permissions
     - Ex:  Service Control Policy to restrict the ability to disable CloudTrail logging
 - ![AWS Organizations Sample Account Hierarchy](images/AWS_Organizations__Service_Control_Policies.png)
-
-
-## Labs Notes
-https://jorge-vasquez-slalom.signin.aws.amazon.com/console
-MyS3User:AnotherPwd#2019
-
-## TODOS 
-- Test OAI link in Cloudfront
-
-## Additional Resources
-- https://www.youtube.com/watch?v=aISWoPf_XNE
