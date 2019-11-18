@@ -41,7 +41,7 @@
 - Question:  How can we be notified that a log file has been created, and then validate that its not been modified?
     - Configure SNS notifications and log file validation on the 'Trail'.  Develop a solution that when triggered by SNS will validate the logs using the provided digest file.  Also:  Lambda function that compares digest files with actual logs.  The hash still cannot be tampered because the private key is managed directly by AWS.
 - Question:  How can we prevent logs from being deleted?
-    - Restrict delete access with IAM and bucket policies.  Configure S3 MFA Delete.  Validate that logs have not been deleted using log file validation.  Note:  Delete Actions in S3 buckets can be blocked for everyone, including the root user.
+    - Restrict delete access with IAM and bucket policies.  Configure S3 MFA Delete (cannot be done via the console, only via CLI or SDKs).  Validate that logs have not been deleted using log file validation.  Note:  Delete Actions in S3 buckets can be blocked for everyone, including the root user.
 - Question:  How can we ensure that logs are retained for X years in accordance with our compliance standards?
     - By default logs will be kept indefinitely.  Use S3 Object Lifecycle Management to remove the files after the required period of time, or move the files to AWS Glacier for more cost effective long term storage.
 
@@ -148,7 +148,7 @@
 ## AWS Cloud HSM
 - You pay an hourly fee for each active HSM in your account
 - It is not a heavy topic in the exam
-- The AWS CloudHSM service helps you meet corporate, contractual and regulatory compliance requirements for data security by using dedicated Hardware Security Moducle (HSM) appliances within the AWS cloud. (dedicated hardware instead of multi-tenant)
+- The AWS CloudHSM service helps you meet corporate, contractual and regulatory compliance requirements for data security by using dedicated Hardware Security Module (HSM) appliances within the AWS cloud. (dedicated hardware instead of multi-tenant)
 - Enables:
     - Control of data
     - Evidence of control
@@ -172,7 +172,7 @@
 ## AWS Inspector vs AWS Trusted Advisor
 - AWS Trusted Advisor is an application that draws upon best practices learned from AWS’ aggregated operational history of serving hundreds of thousands of AWS customers. Trusted Advisor inspects your AWS environment and makes recommendations for saving money, improving system performance, or closing security gaps.
     - The recommendations are prepackaged and not configurable by users
-    - Users can only specific items (ex:  specific Security Group) that they would like to exclude from recommendations
+    - Users can only specify items (ex:  specific Security Group) that they would like to exclude from recommendations
     - To unlock all features a support plan upgrade is required
 - AWS Inspector is a purely security, identity and compliance tool
 - Trusted Advisor has some security but also has other stuff
