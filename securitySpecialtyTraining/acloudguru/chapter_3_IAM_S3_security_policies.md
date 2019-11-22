@@ -82,6 +82,30 @@
             - `Resource` and `NotResource`
         - Condition
             - ![Condition Example](images/iam_policy_condition_example.png)
+            - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html 
+            - Examples:
+            ```
+                {
+                "Version": "2012-10-17",
+                "Statement": {
+                    "Effect": "Allow",
+                    "Action": "iam:*AccessKey*",
+                    "Resource": "arn:aws:iam::ACCOUNT-ID-WITHOUT-HYPHENS:user/*",
+                    "Condition": {"IpAddress": {"aws:SourceIp": "203.0.113.0/24"}}
+                }
+                }
+            ```
+            ```
+            {
+            "Version": "2012-10-17",
+            "Statement": {
+                "Effect": "Allow",
+                "Action": "iam:*AccessKey*",
+                "Resource": "arn:aws:iam::ACCOUNT-ID-WITHOUT-HYPHENS:user/*",
+                "Condition": {"IpAddress": {"aws:SourceIp": "203.0.113.0/24"}}
+            }
+            }
+            ```
 
 ## AWS Policy Evaluation Logic
 - By default, all requests are implicitly denied. (Alternatively, by default, the AWS account root user has full access.)

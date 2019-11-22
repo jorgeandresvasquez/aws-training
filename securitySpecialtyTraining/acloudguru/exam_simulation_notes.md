@@ -222,7 +222,26 @@
     - You do not have permission to use the CMK to decrypt the logs
     - You do not have read permission for the S3 bucket
 
+- You are trying to SSH into your EC2 instance and you get a "Permission denied (publickey)" error. Which of the following are the most likely causes of this error?
+    - If you connect to your instance using SSH and get any of the following errors, "Host key not found in [directory]", "Permission denied (publickey)", or "Authentication failed, permission denied", verify that you are connecting with the appropriate user name for your AMI *and* that you have specified the proper private key (.pem) file for your instance.
 
+- You are responsible for the security profile of a number of mission critical applications at a large global telecommunications company. Your team lead asks you to propose a solution to trace all changes made to the AWS infrastructure. You must also prevent any evidence from tampering or deletion by malicious actors attempting to conceal unauthorized activities. Which of the following approaches do you propose?
+    - Enable CloudTrail in all AWS regions and send logs to a dedicated S3 bucket. Grant read only access to the Security Team members who need to review the logs.
+    - Only allow the Security Team permission to make changes in CloudTrail.
+
+- You are providing a security administrator with some on-the-job training regarding IAM, roles and policies. The security administrator asks just what the policy evaluation logic is when a request is made? For example, when a user tries to use the AWS Management Console, what is the process that AWS goes through to determine if that request is allowed?
+    - The AWS service receives the request. AWS first authenticates the principal. Next, AWS determines which policy to apply to the request. Then, AWS evaluates the policy types and arranges an order of evaluation. Finally, AWS then processes the policies against the request context to determine if it is allowed.
+
+- You have configured a VPC with a CIDR range of 10.0.0.0/16. You created a public subnet with a CIDR range of 10.0.1.0/24 and a private subnet of 10.0.2.0/24. You launch two application servers in the public subnet and an RDS PostgreSQL database in the private subnet. You have configured two security groups named MyWebSG and MyDbSG. You have associated the web servers to MyWebSG and associated the RDS instance to MyDbSG. Which of the following rules will you need to add to enable the web servers to communicate with the database on port 5432?
+    - In MyDbSG, allow inbound traffic with a source of MyWebSG on port 5432
+        - Allow inbound access to the database from the web servers associated with the MyWebSG security group. Security groups are stateful, if you have allowed the inbound traffic you do not need to create a rule to allow the outbound reply. By default an SG allows any outbound traffic so you don't need to add an outbound rule to MyWebSG
+
+- You are trying to connect to your Linux EC2 instance, however you have lost your private key. Which of the following steps do you need to perform in order to access your instance again?
+    - If you lose the private key for an EBS-backed instance, you can regain access to your instance. You must stop the instance, detach its root volume and attach it to another instance as a data volume, modify the authorized_keys file, move the volume back to the original instance, and restart the instance.
+
+- You have noticed some strange activity in your AWS accounts and have engaged an external consultancy to review your accounts and try to understand what is going on. The consultant has asked to review all the API events in your account over the next two weeks. Your department currently has a number of different accounts, and you are struggling to keep track of everything. The consultant needs to check what is going on in each of these accounts. Which of the following options is the best way to enable this?
+    - Create a new AWS Organization, add each account to the Organization, then create a single CloudTrail which covers all accounts. Grant read only access to CloudTrail and the S3 bucket for the consultant.
+        - AWS CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing of your AWS account. Using AWS CloudTrail, a user in a master account can create an organization trail that logs all events for all AWS accounts in that organization. Organization trails are automatically applied to all member accounts in the organization. Member accounts can see the organization trail, but can't modify or delete it. By default, member accounts don't have access to the log files for the organization trail in the Amazon S3 bucket. This helps you uniformly apply and enforce your event logging strategy across the accounts in your organization.
 
 ## Terms 
 - LUKS:  Linux Unified Key Setup is a disk ecnryption specification.  It is the standard for Linux hard disk encryption. By providing a standard on-disk-format, it does not only facilitate compatibility among distributions, but also provides secure management of multiple user passwords.

@@ -67,6 +67,9 @@
     - ![Event-driven security for KMS API operattions using Cloudtrail+Cloudwatch+lambda](images/KMS_even_driven_security_cloudtrail.png)
     - ![Event-driven security for KMS API operattions using AWS Config+lambda+SNS](images/KMS_even_driven_security_config.png)
 
+## KMS Policies and Grants
+- https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html
+
 ## KMS Key Rotation Options
 - Extensive re-use of encryption keys is not recommended
 - It is best practice to rotate keys on a regular basis
@@ -115,6 +118,19 @@ $ ssh ec2-user@18.221.84.193 -i private_key.pem
     3. Copy AMI and encrypt it (select your key)
     4. Launch new EC2 instance from this AMI
 - You can copy AMIs between regions and change key during copying but KMS key has to exist in destination region
+
+## Envelope Encryption
+- You can use a CMK to encrypt and decrypt up to 4 KB (4096 bytes) of data. Typically, you use CMKs to generate, encrypt, and decrypt the data keys that you use outside of AWS KMS to encrypt your data.
+- Here are the steps to implement Envelope Encryption:
+    1.  Create a new CMK, or re-use an existing CMK. This can be done the AWS Console, or with CLI using create-key.
+    2.  Use generate-data-key to get a data key.
+    3.  This returns the plain text data key, and also an encrypted (with the specified CMK) version of the data key. The encrypted version is referred to as a CipherTextBlob. Store the returned CipherTextBlob (we will need it later). The CipherTextBlob has metadata which tells KMS which CMK was used to generate it. Store this CipherTextBlob.
+    4.  Use the plain-text data key to encrypt any amount of data.
+    5.  Throw away the plain-text data key, but be sure to store the CipherTextBlob along side the encrypted data.
+    6.  To decrypt, use the Decrypt API, sending it the CipherTextBlob from step (3).
+    7.  The above step will return the plain text data key (the same one we threw away). Use this key to decrypt the data.
+    8.  Throw away the plain-text data key.
+    9.  To encrypt more data, repeat steps 6, 7, 8 except use the plain text key to encrypt instead of decrypt.
 
 ## EC2 & Key Pairs
 - You can view the public key by going to `/home/ec2-user/.ssh/authorized_keys`

@@ -103,6 +103,50 @@
     - Entropy
     - Different models may train differently due to this
 
+## Hyperparameters
+- We can choose different tracks which will provide different experiences for the training process
+- We have our choice of `Action Space` where we can choose speed and steering
+- We also have hyperparameters which are dials and knowbs to adjust the training process
+- Similar to a sound engineer that adjusts to room, instruments, artist, etc.
+- Typical cycle:
+    - The agent (car) is in its environment (track)
+    - The thing we're trying to train (policy) will take an image from the onbard camera
+    - The policy will decide what action to do next
+    - Once the car selects and action everything goes through the reward function to give us some sort of `award`
+    - The training process keeps up with this reward as well as the observation, state and action taken and writes it into a little journal
+        - This process is called an episode
+        - Episodes repeat until we have a nice set of data on which to train
+        - The episodes are tracked into a journal or experience buffer
+- Hyperparameter elements:
+    1.  Number of episodes
+        - The more episodes the more data the policy process has to go on
+        - More episodes also mean a longer duration for training
+    2.  Gradient descent Batch size
+        - Larger batch sizes mean more stable learning but it also slows down the learning process
+    3.  Epoch
+        - One pass over the batches
+        - The more times the more stable the updates will be but will slow down the learning process
+    4.  Discount factor
+        - How far into the future the algorithm looks
+        - 0.9 will look at 10 steps into the future
+        - Looking too far into the future can be overwhelming
+    5.  Loss function
+        - Way to know if we're headed in the right direction
+        - 2 types:
+            1. Mean Square Error
+                - Might be too aggressive
+            2. Huber
+                - Tends to be more subtle
+    6.  Entropy
+        - Trade-off between exploit and explore
+        - Another word for randomness
+    7. Learning rate
+        - Amount of change
+        - Tiny vs big steps
+    7.  Time
+        - How much should you train your model?
+        - Recommendation is to train models in 1 hour increments
+
 ## Reward functions from Scott Pletcher
 - https://github.com/scottpletcher/deepracer
 

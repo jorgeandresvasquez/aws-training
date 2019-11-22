@@ -27,6 +27,14 @@
         - https://aws.amazon.com/vpc/faqs/
         - https://aws.amazon.com/directconnect/faqs/
         - https://aws.amazon.com/ec2/faqs/
+        - https://aws.amazon.com/systems-manager/faq/
+        - https://aws.amazon.com/secrets-manager/faqs/
+        - https://aws.amazon.com/kinesis/video-streams/faqs/
+        - https://aws.amazon.com/kinesis/data-streams/faqs/
+        - https://aws.amazon.com/kinesis/data-firehose/faqs/
+        - https://aws.amazon.com/kinesis/data-analytics/faqs/
+        - https://aws.amazon.com/security-hub/faqs/
+
 - Take simulation exams
     - whizlabs:
         - https://www.whizlabs.com/learn/course/aws-certified-security-specialty
