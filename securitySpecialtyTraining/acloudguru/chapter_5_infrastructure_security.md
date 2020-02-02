@@ -171,7 +171,6 @@ $ ssh ec2-user@18.221.84.193 -i private_key.pem
     - Presence of a script that is likely to be malicious (cross-site scripting)
 - WAF operates at layer 7 (Application Layer), Shield is a DDoS mitigation
 - Sample CloudFormation template for WAF configuration:  `https://s3.amazonaws.com/cloudformation-examples/community/common-attacks.json`
-- ALB WAFs are regional where as cloudfront WAFs are global
 - WAF Samples from AWS:  `https://aws.amazon.com/waf/preconfiguredrules/`
 - Application Load Balancers integrate with WAF at a regional level, cloudfront at a Global level
 - You need to associate your rules to AWS resources in order to be able to make it work
@@ -182,7 +181,7 @@ $ ssh ec2-user@18.221.84.193 -i private_key.pem
     - Turned on by default
     - $3000/month if you want the advanced option
     - Advanced gives you an incident response team and in-depth reporting
-    - You won't pay if you are a victim of an attack
+    - You won't pay if you are a victim of an attack and you have the advanced option
 - WAF Visibility and Analytics
     - Cloudwatch Metrics
         - Metrics on every rule (allowed, blocked, counted, passed)

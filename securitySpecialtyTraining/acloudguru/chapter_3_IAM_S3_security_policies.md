@@ -71,7 +71,7 @@
 - Contain 4 parts:  
     - PARC:
         - Principal
-            - The Entity that si allowed or denied access to the resource
+            - The Entity that is allowed or denied access to the resource
             - Indicated by ARN (Amazon Resource Name)
             - With IAM policies the principal element is implicit (user, group, role)
             - You use principal with policies that are attached to resources (ex:  S3 bucket policy)
@@ -94,17 +94,6 @@
                     "Condition": {"IpAddress": {"aws:SourceIp": "203.0.113.0/24"}}
                 }
                 }
-            ```
-            ```
-            {
-            "Version": "2012-10-17",
-            "Statement": {
-                "Effect": "Allow",
-                "Action": "iam:*AccessKey*",
-                "Resource": "arn:aws:iam::ACCOUNT-ID-WITHOUT-HYPHENS:user/*",
-                "Condition": {"IpAddress": {"aws:SourceIp": "203.0.113.0/24"}}
-            }
-            }
             ```
 
 ## AWS Policy Evaluation Logic
