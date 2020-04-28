@@ -91,13 +91,52 @@
     - If DynamoDB can't be used, choose Aurora because of redundancy and automatic recovery features
     - If Aurora can't be used, choose multi-AZ RDS
     - Frequent RDS snapshots can protect against data corruption or failure - and they won't impact performance of multi-AZ deployment.
+    - Regional replication is also an option, but will not be strongly consistent
+    - If database is on EC2 then you'll have to design HA yourself
+- HA Notes for Redshift
+    - Currently, Redshift does not support multi-AZ deployments
+    - Best HA option is to use a multi-node cluster which support data replication and node recovery
+    - A single node Redshift cluster does not support data replication and you'll have to restore from a snapshot on S3 if a drive fails
+- HA Notes for ElastiCache
+    - Memcached
+        - Because Memcached does not support replication, a node failure will result in data loss
+        - Use multiple nodes in each shard to minimize data loss on node failure
+        - Launch multiple nodes across available AZs to minimize data loss on AZ failure
+    - Redis
+        - Use multiple nodes in each shard and distribute the nodes across multiple AZs
+        - Enable multi-AZ on the replication group to permit automatic failover if the primary node fails
+        - Schedule regular backups of your Redis cluster
 
+## Network HA Options
+- By creating subnets in the available AZs, you create multi-AZ presence for your VPC
+- Best practice is to create at least 2 VPN tunnels into your Virtual Private Gateway
+- Direct Connect is not HA by default, so you need to establish a secondary connection via another Direct Connect (ideally with another provider) or use a VPN
+- Route 53's Health Checks provide basic level of redirecting DNS resolutions
+- Elastic IPs allow you flexibility to change out backing assets without impacting name resolution
+- For multi-AZ redundancy of NAT Gateways, create gateways in each AZ with routes for private subnets to use the local NAT Gateway
 
 ## Pro Tips
+- Failure Mode and Effects Analysis (FMEA)
+    - A systematic process to examine:
+        1. What could go wrong
+        2. What impact it might have
+        3. What is the likelihood of it occurring
+        4. What is our ability to detect and react
+        5. What should we do about it to reduce the risk or position ourselves to react to it
+    - Severity * Probability * Detection = Risk Priority Number
+        - Some people use formula:  Severity * Probability + Detection = Risk Priority Number  
 
 ## Sample Questions Notes
 
 ## Other resources
-
+- https://d1.awsstatic.com/whitepapers/Storage/Backup_and_Recovery_Approaches_Using_AWS.pdf
+- https://d1.awsstatic.com/whitepapers/getting-started-with-amazon-aurora.pdf
+- https://d1.awsstatic.com/whitepapers/architecture/AWS-Reliability-Pillar.pdf
+- Models of Availability
+    - https://www.youtube.com/watch?v=xc_PZ5OPXcc
+- How to Design a Multi-Region Active-Active Architecture
+    - https://www.youtube.com/watch?v=RMrfzR4zyM4
+- Disaster Recovery with AWS: Tiered Approaches to Balance Cost with Recovery Directives
+    - https://www.youtube.com/watch?v=a7EMou07hRc
 
 
