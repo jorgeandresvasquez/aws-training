@@ -117,5 +117,5 @@ Which one describes the correct sequences?
     - Answers:
         - Use DNS to validate the domain ownership. You can insert ACM generated CNAME records into your DNS database
         - ACM sends emails to the contact addresses of the domain name. You can validate the domain owner in the email.
-    - [ACM certificate request validation for domain associated to request](images/acm_certificate_request_validation_for_domain)
+    - ![ACM certificate request validation for domain associated to request](images/acm_certificate_request_validation_for_domain.png)
 
