@@ -1,0 +1,99 @@
+## Glacier
+- Compliance
+    - Vault lock
+        - Deploy and enforce controls for a vault with a vault lock policy
+        - Policies
+            - Locked from editing
+            - Policies cannot be changed after locking
+            - Enforce compliance controls
+            - Created using IAM policies
+        - Setting up a vault lock
+            - Step 1:  Intitite Vault lock
+                - Attaches a vault lock policy to your vault
+            - Step 2:  The lock is set to an InProgress state and a lock Id is returned
+                - 24 hours to validate the lock (expires after 24 hours)
+            - Step 3:  Initiate the Complete Vault Lock Operation
+                - In Progress state to the locked state (immutable)
+
+## DynamoDB
+- What is dynamoDB?
+    - Fully managed NoSQL Database service
+    - Supports both document and key-value data models
+- Use cases:
+    - Mobile
+    - Web
+    - Gaming
+    - IoT
+    - Live online voting
+    - Session management
+    - Store S3 object metadata
+- Features:
+    - Predictable fully manageable performance, with seamless scalability
+    - No visible servers
+    - No practical storage limitations
+    - Runs on SSD
+    - Fully resilient and highly available
+    - Performance scales in a linear way
+    - Fully integrated with IAM - rich and controllable security
+    - Collection of tables in each region
+    - Tables are the highest level structure within a DB
+    - You specific performance requirements on tables
+    - Write Capacity Units (WCU) - Number of 1kB blocks per second
+    - Read Capacity Units (RCU) - Number of 4kB blocks per second
+    - Eventually Consistent Reads (Default)
+    - Strongly Consistent Reads
+    - Billing is done based on WCU, RCU and data stored
+    - Unlike SQL databases, the data structure or schema is not defined at the table level
+- Data structures within a table:
+    - Table
+    - Items
+    - Attributes
+    - Partition Key (Hash Key)
+    - Sort Key (Range Key)
+- Data types:
+    - String
+    - Number
+    - Binary
+    - Boolean
+    - Null
+    - Document
+    - Set
+- Composite primary key
+    - A composite primary key is useful for using DynamoDB as more than a simple key-value store. It allows you to work with a group of related items with a single query and enables some powerful use cases.
+    - Creating a table with a composite primary key is similar to creating a table with a simple primary key. You define the attributes and your key schema when creating the table. The main difference is that you'll need to define two attributes rather than one. You then have to specify which attribute is your HASH key and which is your RANGE key.
+    - The HASH key is how your data is partitioned, while the RANGE key is how that data is sorted within a particular HASH key. The HASH key is particularly important -- you can only grab data for a single HASH key in a Query operation. The HASH and RANGE keys allow for a one-to-many like structure -- for a single HASH key, there can be multiple RANGE keys.
+    - When thinking about how to set up our data structure, think how you would fill in the blanks for the following query:
+        - ```Give me all of the ____ from a particular ___.```
+- DynamoDB has a 1MB limit on the amount of data it will retrieve in a single request.
+- If you hit the 1MB limit with a Scan, it will return a "NextToken" key in the response. You can use the value given with the `starting-token` option to continue scanning from the location you previously ended.
+- RCU:
+    - Unit of read capacity has been defined as 1 strongly consistent read per second for an item as large as 4KB. 
+- WCU: 
+    - Unit of write capacity represents 1 write per second for an item as large as 1KB.
+
+## DynamoDB Performance Deep Dive
+- Partitions are units of storage and performance which underpin the reads and writes between dynamoDB and underlying storage infrastructure
+- 2 formulas to determine number of partitions:
+    1. Based on Performance
+        - Partitions = Desired RCU / 3000 RCU + Desired WCU / 1000 WCU
+    2. Based on the size of the data stored within the table
+        - Partitions = Data size in GB / 10 GB
+- The actual number of partitions is the MAX of the performance and size partitions
+- Our allocated reads and writes are distributed across partitions
+- What makes a good key?
+    - Few criteria which assist dynamoDB with scaling performance
+        - The attribute should have many distinct values
+            - Ex:  Don't pick classId within school
+        - The attribute should have a uniform write pattern across all partition key values
+        - The attribute should have a uniform temporal write pattern across time
+        - If any of the above aren't possible with an existing value - you should consider a synthetic/created/hybrid value
+        - You shouldn't mix HOT and COLD key values within a table
+- Global Secondary Indexes (GSI)
+    - GSIs have their own RCU and WCU values and use alternative keys
+- Index limits per table
+    - You may create 20 global secondary indexes and 5 local secondary indexes per table.
+
+## References
+- DynamoDB:
+    - https://www.dynamodbguide.com/
+    - https://aws.amazon.com/blogs/database/how-amazon-dynamodb-adaptive-capacity-accommodates-uneven-data-access-patterns-or-why-what-you-know-about-dynamodb-might-be-outdated/
