@@ -44,6 +44,11 @@
 - DHCP:  Dynamic Host Configuration Protocol
     - Goal is to assign unique IP addresses to our hosts
     - DHCP Server + DHCP Client
+    - When you create a VPC, AWS automatically creates a set of DHCP options and associate them with the VPC. This set includes two options: domain-name-servers=AmazonProvidedDNS, and domain-name=domain-name-for-your-region.
+    - AmazonProvidedDNS is an Amazon DNS server, and this option enables DNS for instances that need to communicate over the VPC's internet gateway. The string AmazonProvidedDNS maps to a DNS server running on a reserved IP address at the base of the VPC IPv4 network range, plus two.
+    - After you create a set of DHCP options, you can't modify them. If you want your VPC to use a different set of DHCP options, you must create a new set and associate them with your VPC. 
+    - You can have multiple sets of DHCP options, but you can associate only one set of DHCP options with a VPC at a time. 
+    - After you associate a new set of DHCP options with a VPC, any existing instances and all new instances that you launch in the VPC use the new options.  You don't need to restart or relaunch the instances. 
 
 ## Network to VPC Connectivity
 - AWS Managed VPN

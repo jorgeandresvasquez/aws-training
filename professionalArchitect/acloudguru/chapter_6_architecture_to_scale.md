@@ -5,8 +5,8 @@
     - Interchangeable components
     - More atomic functional units
     - Can scale components independently
-- ![Horizontal vs Vertical Scaling](images/horizontal_vs_vertical_scaling.png)
-- ![Scale-Out Scale-In Scale-Up Scale-Down](images/scale_out_in_up_down.png)
+- ![Horizontal vs Vertical Scaling](images/horizontal_vs_vertical_scaling.png)*Horizontal vs Vertical Scaling*
+- ![Scale-Out Scale-In Scale-Up Scale-Down](images/scale_out_in_up_down.png)*Scale-Out Scale-In Scale-Up Scale-Down*
 
 ## Auto-Scaling
 - ![Types of Autoscaling](images/types_of_autoscaling.png)
@@ -63,7 +63,7 @@
     - Total RCU and WCU is equally allocated across partitions
     - AWS allows some burst capacity but it should be avoided
 - It is beneficial to have a partition key that has a degree of variability in it to equally spread the load across the different partitions
-- ![DynamoDB Hot Partition or Hot Key Example](images/dynamodb_hot_partition_example.png)
+- ![DynamoDB Hot Partition or Hot Key Example](images/dynamodb_hot_partition.png)
     - In this scenario we might be consuming all of the write/read capacity against the hot partition very quickly
     - In this scenario it is better to use the sensorId as the partition key
 - ![DynamoDB Auto Scaling](images/dynamodb_auto_scaling.png)

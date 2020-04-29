@@ -203,6 +203,10 @@
     - Allows you to shorten the distance from when you collect the data to when you can actually make sense of it
     - Simplifies the identification of correlations between disparate data sets
     - ![Data Lake overview](images/data_lake_overview.png)
+- Workload Management
+    - Amazon Redshift workload management (WLM) enables users to flexibly manage priorities within workloads so that short, fast-running queries won't get stuck in queues behind long-running queries.
+    - Amazon Redshift WLM creates query queues at runtime according to service classes, which define the configuration parameters for various types of queues, including internal system queues and user-accessible queues. 
+    - When you run a query, WLM assigns the query to a queue according to the user's user group or by matching a query group that is listed in the queue configuration with a query group label that the user sets at runtime.
 
 ## Amazon Neptune
 - Fully managed graph database

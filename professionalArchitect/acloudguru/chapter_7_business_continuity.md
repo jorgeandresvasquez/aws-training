@@ -93,6 +93,16 @@
     - Frequent RDS snapshots can protect against data corruption or failure - and they won't impact performance of multi-AZ deployment.
     - Regional replication is also an option, but will not be strongly consistent
     - If database is on EC2 then you'll have to design HA yourself
+    - ![RDS with Standby and Replica](images/rds_standby_replica.png)
+        - Dotted lines represent synchronous replication
+        - Continuous lines represent asynchronous replication and this is why they are called `eventually consistent replicas`
+    - ![RDS with Standby and Replica After Loosing the Master](images/rds_standby_replica_loosing_master.png)
+    - ![RDS with Standby and Replica After Loosing a whole region](images/rds_standby_replica_loosing_region.png)
+        - If we loose a whole region then we can promote one of the Read Replicas to the Master
+        - We have to promote it to a single instance first and then reconfigure it to do multi-AZ
+        - Promoting a read replica to a master is usually a big deal, so better to do it automatically
+        - If we were using Aurora the promotion of the Read Replica would be completely automatic
+    - For high-availability scenarios in Aurora AWS recommends that you create one or more Aurora Replicas. These should be of the same DB instance class as the primary instance and in different Availability Zones for your Aurora DB cluster.
 - HA Notes for Redshift
     - Currently, Redshift does not support multi-AZ deployments
     - Best HA option is to use a multi-node cluster which support data replication and node recovery
@@ -127,6 +137,29 @@
         - Some people use formula:  Severity * Probability + Detection = Risk Priority Number  
 
 ## Sample Questions Notes
+- Restoring from a VTL (Virtual Tape Library) can take several hours so it can impact the desired RTO
+- Amazon RDS Read Replicas for MySQL and MariaDB now support Multi-AZ deployments. Combining Read Replicas with Multi-AZ enables you to build a resilient disaster recovery strategy and simplify your database engine upgrade process. 
+    - Amazon RDS Read Replicas enable you to create one or more read-only copies of your database instance within the same AWS Region or in a different AWS Region. Updates made to the source database are then asynchronously copied to your Read Replicas. In addition to providing scalability for read-heavy workloads, Read Replicas can be promoted to become a standalone database instance when needed. 
+    - Amazon RDS Multi-AZ deployments provide enhanced availability for database instances within a single AWS Region. With Multi-AZ, your data is synchronously replicated to a standby in a different Availability Zone (AZ). In the event of an infrastructure failure, Amazon RDS performs an automatic failover to the standby, minimizing disruption to your applications.
+- ELB can have cross-zone load balancing enabled to that traffic is distributed equally across all targets regardless of the AZ in which they are located
+- If you absolutely want to make sure that you have resources when you need then you should purchase Reserved Instances
+- Read Replicas in RDS don't have auto-failover capability, they're available but you have to implement the switch yourself either manually or with a script.  In Aurora however they do have auto-failover.
+- An electromagnetic pulse (EMP) from a sun flare takes out the electrical grid.  What type of disaster is this?
+    - Infrastructure
+        - Failure of utilities or adverse environmental conditions are considered infrastructure disasters
+- Your client has defined an RPO and RTO of 24 hours for their 2GB database. What general approach would you recommend to fulfill these requirements most cost-effectively?
+    - Backup and Restore
+        - With the relatively small data size and generous RTO/RPO, a simple backup and restore process would work well.
+- Your client is seeking recommendations to help reduce the risk of underlying hardware failure on AWS. Which might you recommend? (Choose 2)
+    - Make use of horizontal scaling over vertical scaling where possible
+    - Make use spread placement groups
+- Which is false about Redshift in the context of fault tolerance?
+    - Redshift multi-node clusters are multi-AZ by default.
+        - Redshift currently only supports single-AZ deployments but you can run multiple clusters in different AZs.
+- You need an in-memory cache but you want it to be able to survive an AZ failure. Which option is best?
+    - Elasticache for Redis
+        - Elasticache for Redis supports multi-AZ configurations while Memcached does not.
+
 
 ## Other resources
 - https://d1.awsstatic.com/whitepapers/Storage/Backup_and_Recovery_Approaches_Using_AWS.pdf
