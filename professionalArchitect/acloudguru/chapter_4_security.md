@@ -3,11 +3,11 @@
 - Principle of Least Privilege
     - Give users or services nothing more than those privileges required to perform their intended function
     - And only when they need them
-- ![Security Facets](images/security_facets.png)
-- [Identify Systems Typical Components](images/identity_system_components.png)
-- [Typical Identity Information Flow](images/identity_information_flow.png)
-- [SAML2.0 vs OAuth2.0 vs OpenId](images/sam_oauth2_openid.png)
-- [AWS Security Compliance](images/aws_security_compliance.png)
+- ![Security Facets](images/security_facets.png)*Security Facets*
+- ![Identify Systems Typical Components](images/identity_system_components.png)*Identify Systems Typical Components*
+- ![Typical Identity Information Flow](images/identity_information_flow.png)*Typical Identity Information Flow*
+- ![SAML2.0 vs OAuth2.0 vs OpenId](images/sam_oauth2_openid.png)*SAML2.0 vs OAuth2.0 vs OpenId*
+- ![AWS Security Compliance](images/aws_security_compliance.png)*AWS Security Compliance*
 
 ## IAM Notes
 - Principal
