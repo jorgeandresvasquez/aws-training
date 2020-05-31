@@ -67,12 +67,15 @@
 
 ## AWS Directory Services
 - ![Types of Directory Services Offered](images/types_directory_services_offered.png)
-- ![AD Connector vs Simple AD](images/ad_connector_vs_simple_ad.png)
+- ![AD Connector vs Simple AD](images/ad_connector_vs_simple_ad.png)*AD Connector vs Simple AD*
 
 ## Credential and Access Management
 - STS (Security Token Serive) allows us to temporary grant access to applications or users
     - Credentials can be source from IAM, Acive Directory, External Auth Providers
-    - ![Secure Token Service Flow](images/secure_token_service_flow.png)
+    - ![Secure Token Service Flow](images/secure_token_service_flow.png)*Secure Token Service Flow*
+    - `Assume Role` - Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to. Typically, you use AssumeRole for cross-account access or federation.
+    - `GetFederationToken` - Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user. A typical use is in a proxy application that gets temporary security credentials on behalf of distributed applications inside a corporate network
+    - `AssumeRoleWithWebIdentity` requires no AWS credentials to start with; instead, it takes an external identity and uses the trust policy built into the role to elevate AWS access for a short time (max 1h).
 - Web Identify Federation Playground
     - https://web-identity-federation-playground.s3.amazonaws.com/index.html
     - Steps:

@@ -2,7 +2,6 @@
 - ![Migration Strategies Definitions](images/migration_strategies_definitions.png)
 - `Retire` has the least cost
 
-
 ## Cloud Adoption Framework
 - Analogous to TOGAF Framework for Enterprise Architecture
     - TOGAF:  The Open Group Architectural Framework
@@ -60,6 +59,10 @@
     - SCT is used for larger, more complex datasets like data warehouses
     - DMS has replication function for on-premises to AWS or to Snowball or S3
     - ![Database Migration Service in Action](images/dms_in_action.png)
+    - Workload Qualification Framework (can be run using prepackaged AMI).
+        - Assesses and rates the workload for the entire migraiton, helps estimate effort, helps derive action items (roadmap)
+    - Old World to Aurora Migration Playbooks
+    - Change Data Capture for Deltas once you move huge datasets with example snowball
 - Application Discovery Service
     - Gathers information about on-premises data centers to help in cloud migration planning
     - Often customers don't know the full inventory or status of all their data center assets, so this tool helps with that inventory

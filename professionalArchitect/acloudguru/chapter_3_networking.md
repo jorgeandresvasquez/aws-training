@@ -4,14 +4,14 @@
 - OSI Model
     - Please Do Not Throw Sausage Pizza Away 
         - Physical, Data Link, Network, Transport, Session, Presentation, Application
-    - ![OSI MOdel](images/osi_model.png)
-    - ![OSI MOdel Responsibility Demarcation](images/osi_model_responsibilities.png)
+    - ![OSI MOdel](images/osi_model.png)*OSI Model*
+    - ![OSI MOdel Responsibility Demarcation](images/osi_model_responsibilities.png)*OSI MOdel Responsibility Demarcation*
 - Unicast
     - Like a direct conversation between 2 people
 - Multicast
     - Like somebody shouting with a speaker to everyone
     - Network card starts sending messages to everybody in the network at the Mac Address level
-- ![TCP vs UDP vs ICMP](images/tcp_udp_icmp.png)
+- ![TCP vs UDP vs ICMP](images/tcp_udp_icmp.png)*TCP vs UDP vs ICMP*
 - Ephemeral Ports:
     - Short-lived transport protocol ports used in IP communications
     - Above the "well-known" IP ports (above 1024)
@@ -21,8 +21,8 @@
         - Windows platforms default from 1025
     - Have NACL and Security Group implications
     - The client is responsible for defining the ephemeral port that the server should talk back on
-    - ![TCP communication using Ephemeral Ports](images/tcp_sample_ephemeral.png)
-    - ![TCP/UDP communication using Ephemeral Ports](images/tcp_udp_sample_ephemeral.png)
+    - ![TCP communication using Ephemeral Ports](images/tcp_sample_ephemeral.png)*TCP communication using Ephemeral Ports*
+    - ![TCP/UDP communication using Ephemeral Ports](images/tcp_udp_sample_ephemeral.png)*TCP/UDP communication using Ephemeral Ports*
 - Reserved IP addresses
     - 5 IPs are reserved in every VPC subnet
         - Example for 10.0.0.0/24:
@@ -57,43 +57,43 @@
     - Pros:  Supports static routes or BGP (Border Gateway Protocol, routing protocol used to route traffic across the internet) peering and routing
     - Cons:  Dependent on your internet connection
     - How:  
-        - ![AWS Managed VPN](images/aws_managed_vpn.png)
-        - ![AWS Managed VPN Redundant](images/aws_managed_vpn_redundant.png)
+        - ![AWS Managed VPN](images/aws_managed_vpn.png)*AWS Managed VPN*
+        - ![AWS Managed VPN Redundant](images/aws_managed_vpn_redundant.png)*AWS Managed VPN Redundant*
 - AWS Direct Connect
     - What:  Dedicated network connection over private lines straight into AWS backbone
     - When:  Require a "big pipe" into AWS; lots of resources and services being provided on AWS to your corporate users
     - Pros:  More predictable network performance; potential bandwidth cost reduction; up to 10 Gbps provisioned connections; Supports BGP peering and routing
     - Cons:  May require additional telecom and hosting provider relationships and/or new network circuits
     - How:  Work with your existing Data Networking Provider; Create Virtual Interfaces (VIF) to connect to VPCs (private VIF) or other AWS service like S3 or Glacier (public VIF)
-        - ![AWS Direct Connect](images/aws_direct_connect.png)
+        - ![AWS Direct Connect](images/aws_direct_connect.png)*AWS Direct Connect*
 - AWS Direct Connect Plus VPN
     - What:  IpSec VPN connection over private lines
     - When:  Want added security of encrypted tunnel over Direct Connect
     - Pros:  More secure (in theory) than Direct Connect alone
     - Cons:  More complexity introduced by VPN Layer
     - How:  Work with your existing Data Networking Provider
-        - ![AWS Direct Connect Plus VPN](images/aws_direct_connect_plus_vpn.png)
+        - ![AWS Direct Connect Plus VPN](images/aws_direct_connect_plus_vpn.png)*AWS Direct Connect Plus VPN*
 - AWS VPN Cloudhub
     - What:  Connect locations in a Hub and Spoke manner using AWS's Virtual Private Gateway
     - When:  Link remote offices for backup or primary WAN access to AWS resources and each other
     - Pros:  Reuses existing Internet connection; Supports BGP routes to direct traffic (for example, use MPLS first then CloudHub VPN as backup)
     - Cons:  Dependent on Internet connection; no inherent redundancy
     - How:  Assign multiple Customer Gateways to a Virtual Private Gateway, each with their own BGP ASN and unique IP ranges
-        - ![AWS VPN Cloudhub](images/aws_vpn_cloudhub.png)
+        - ![AWS VPN Cloudhub](images/aws_vpn_cloudhub.png)*AWS VPN Cloudhub*
 - Software VPN
     - What:  You provide your own VPN endpoint and software
     - When:  You must manage both ends of the VPN connection for compliance reasons or you want to use a VPN option not supported by AWS
     - Pros:  Ultimate flexibility and manageability
     - Cons:  You must design for any needed redundancy across the whole chain
     - How:  Install VPN software via Marketplace appliance or on an EC2 instance
-        - ![Software VPN](images/software_vpn.png)
+        - ![Software VPN](images/software_vpn.png)*Software VPN*
 - Transit VPC
     - What:  Common strategy for connecting geographically disperse VPCs and locations in order to create a global network transit center
     - When:  Locations and VPC-deployed assets across multiple regions that need to communicate with one another
     - Pros:  Ultimate flexibility and manageability but also AWS-managed VPN hub-and-spoke between VPCs
     - Cons:  You must design for any needed redundancy across the whole chain
     - How:  Providers like Cisco, Juniper Networks and Riverbed have offerings which work with their equipment and AWS VPC.
-        - ![Transit VPC](images/transit_vpc.png)
+        - ![Transit VPC](images/transit_vpc.png)*Transit VPC*
 - AWS Transit Gateway
     - Centralize VPN and Direct Connect (DX)
     - Thousands of VPCs across accounts
@@ -107,14 +107,14 @@
     - Pros:  Use AWS backbone without touching the Internet
     - Cons:  If A is connected to B and B is connected to C, A cannot talk to C via B (transitive peering is not supported)
     - How:  VPC peering request is made; Accepter accepts request (either within Account or across Accounts)
-        - ![Software VPN](images/vpc_peering.png)
+        - ![Software VPN](images/vpc_peering.png)*Software VPN*
 - AWS PrivateLink
     - What:  AWS-provided network connectivity between VPCs and/or AWS services using interface endpoints (VPC endpoints)
     - When:  Keep private subnets tryly private by using the AWS backbone to reach other services rather than the public internet
     - Pros:  Redundant: uses AWS backbone
     - Cons:  Used to be only available within the region they are created but as of Oct. 2018 they can be accessed over inter-region VCP peering
     - How:  Create Endpoint for needed AWS or marketplace service in all needed subnets; access via the provided DNS hostname
-    - ![Types of VPC endpoints](images/vpc_endpoints.png)
+    - ![Types of VPC endpoints](images/vpc_endpoints.png)*Types of VPC endpoints*
 - Internet Gateway
     - Horizontally scaled, redundant and highly available component that allows commumnication between your VPC and the Internet
     - No availability risk or bandwidth constraints
@@ -151,14 +151,14 @@
     - For multi-AZ redundancy, create NAT Gateways in each AZ with routes for private subnets in each AZ to use the local gateway
     - AWS gurantees 5Gbps bandwidth that can scale up to 45 Gbps
     - Can't use a NAT Gateway to access VPC peering, VPN or Direct Connect, so be sure to include specific routes to those in your route table (`REMEMBER:  MOST SPECIFIC ROUTE IS SELECTED FIRST!`)
-- ![NAT Instance vs NAT Gateway](images/nat_instance_vs_nat_gateway.png)
+- ![NAT Instance vs NAT Gateway](images/nat_instance_vs_nat_gateway.png)*NAT Instance vs NAT Gateway*
 
 ## Routing
 - VPCs have an implicit router and main routing table
 - You can modify the main routing table or create new tables
 - Each route table contains a local route for the CIDR block
 - Most specific route for an address wins
-- ![Routing Example](images/routing_example.png)
+- ![Routing Example](images/routing_example.png)*Routing Example*
     - pl-xxxxxxx (pl stands for private link)
     - vpg-xxxxxxx (vpg stands for virtual private gateway used to connect to on-premises network)
 
@@ -183,27 +183,27 @@
         - Speeds up to 100 Gbps for supported instance types.
 - Placement Groups
     - Idea behind is to have some control on how we can arrange our instances over the physical hardware they live on
-    - ![Placement Group Comparison](images/placement_group_comparison.png)
-    - ![Placement Group Examples Part 1](images/placement_group_examples_part1.png)
-    - ![Placement Group Examples Part 2](images/placement_group_examples_part2.png)
+    - ![Placement Group Comparison](images/placement_group_comparison.png)*Placement Group Comparison*
+    - ![Placement Group Examples Part 1](images/placement_group_examples_part1.png)*Placement Group Examples Part 1*
+    - ![Placement Group Examples Part 2](images/placement_group_examples_part2.png)*Placement Group Examples Part 2*
 
 ## Route 53
 - AWS DNS
 - DNS service port is 53
-- ![Routing Policies Definitions](images/route53_routing_policies_defined.png)
+- ![Routing Policies Definitions](images/route53_routing_policies_defined.png)*Routing Policies Definitions*
     - Important to have a default route as "catch all" as sometimes route53 won't be able to determine where the person is coming from
-- ![Geolocation example](images/geolocation_routing_example.png) 
+- ![Geolocation example](images/geolocation_routing_example.png)*Geolocation example* 
     - Used when you want to route traffic based on the location of your users.
-- ![Geoproximity Routing](images/geoproximity_routing.png)
+- ![Geoproximity Routing](images/geoproximity_routing.png)*Geoproximity Routing*
     - Use when you want to route traffic based on the location of your resources
     - Bias can be between -99<->+99
-- ![Latency Routing](images/latency_routing.png)
+- ![Latency Routing](images/latency_routing.png)*Latency Routing*
     - Based on latency between the requester and the datacenter
-- ![Multivalue Answer Routing](images/multi_value_answer_routing.png)
-    - ![Multivalue Answer Routing Choosing](images/multi_value_answer_routing_choosing.png)
-- ![Weighted Routing](images/weighted_routing.png)
-    - ![Weighted Percentage of Traffic](images/weighted_percentage_of_traffic_by_destination.png)
-    - ![Weighted Traffic Examples](images/weighted_traffic_examples.png)
+- ![Multivalue Answer Routing](images/multi_value_answer_routing.png)*Multivalue Answer Routing*
+    - ![Multivalue Answer Routing Choosing](images/multi_value_answer_routing_choosing.png)*Multivalue Answer Routing Choosing*
+- ![Weighted Routing](images/weighted_routing.png)*Weighted Routing*
+    - ![Weighted Percentage of Traffic](images/weighted_percentage_of_traffic_by_destination.png)*Weighted Percentage of Traffic*
+    - ![Weighted Traffic Examples](images/weighted_traffic_examples.png)*Weighted Traffic Examples*
 - Helpful linux commands for dns:
     - dig <URL>
     - nslookup <URL>
@@ -218,8 +218,8 @@
     - This allows a server to present multiple certificates on the same IP address and TCP port number and hence allows multiple secure (HTTPS) websites (or any other service over TLS) to be served by the same IP address without requiring all those sites to use the same certificate. 
     - It is the conceptual equivalent to HTTP/1.1 name-based virtual hosting, but for HTTPS. 
     - Downside of using SNI is that a few old browsers don't support it
-- ![Cloudfront Setup Screen](images/cloudfront_config_page.png)
-- ![SSL and TLS Evolution](images/ssl_tls_evolution.png)
+- ![Cloudfront Setup Screen](images/cloudfront_config_page.png)*Cloudfront Setup Screen*
+- ![SSL and TLS Evolution](images/ssl_tls_evolution.png)*SSL and TLS Evolution*
 
 ## Elastic Load Balancers
 - Their main function is to distribute inbound connections to one or many backend endpoints
@@ -240,9 +240,9 @@
 - Can be used for public or private workloads
 - Consume IP addresses within a VPC subnet
     - They can scale and as they do they can consume more IP addresses
-- ![Similarities Between ELBs](images/elb_similarities.png)
-- ![Differences Between ELBs](images/elb_differences.png)
-- ![ALB routing example](images/alb_routing_example.png)
+- ![Similarities Between ELBs](images/elb_similarities.png)*Similarities Between ELBs*
+- ![Differences Between ELBs](images/elb_differences.png)*Differences Between ELBs*
+- ![ALB routing example](images/alb_routing_example.png)*LB routing example*
 
 ## Pro Tips
 - Direct Connect may be a more complex and costlier option to setup, but it could save big on bandwidth costs

@@ -53,20 +53,20 @@
     - Increasing your shard allocation enables your application to easily scale from thousands of records to millions of records written per second.
 
 ## DynamoDB Scaling
-- ![DynamoDB Scaling](images/dynamodb_scaling.png)
+- ![DynamoDB Scaling](images/dynamodb_scaling.png)*DynamoDB Scaling*
 - Max item limited to 400kb to make performance deterministic
-- ![DynamoDB Terminology](images/dynamodb_terminology.png)
+- ![DynamoDB Terminology](images/dynamodb_terminology.png)*DynamoDB Terminology*
 - Under the cover dynamo scales out by adding partitions
-- ![DynamoDB Partition Calculation Formula](images/dynamodb_partition_calculation_formula.png)
-- ![DynamoDB Partition Calculation Example](images/dynamodb_partition_calculation_example.png)
-- ![DynamoDB Partition Calculation Example RCU WCU Allocation](images/dynamodb_partition_calculation_example_allocation.png)
+- ![DynamoDB Partition Calculation Formula](images/dynamodb_partition_calculation_formula.png)*DynamoDB Partition Calculation Formula*
+- ![DynamoDB Partition Calculation Example](images/dynamodb_partition_calculation_example.png)*DynamoDB Partition Calculation Example*
+- ![DynamoDB Partition Calculation Example RCU WCU Allocation](images/dynamodb_partition_calculation_example_allocation.png)*DynamoDB Partition Calculation Example RCU WCU Allocation*
     - Total RCU and WCU is equally allocated across partitions
     - AWS allows some burst capacity but it should be avoided
 - It is beneficial to have a partition key that has a degree of variability in it to equally spread the load across the different partitions
-- ![DynamoDB Hot Partition or Hot Key Example](images/dynamodb_hot_partition.png)
+- ![DynamoDB Hot Partition or Hot Key Example](images/dynamodb_hot_partition.png)*DynamoDB Hot Partition or Hot Key Example*
     - In this scenario we might be consuming all of the write/read capacity against the hot partition very quickly
     - In this scenario it is better to use the sensorId as the partition key
-- ![DynamoDB Auto Scaling](images/dynamodb_auto_scaling.png)
+- ![DynamoDB Auto Scaling](images/dynamodb_auto_scaling.png)*DynamoDB Auto Scaling*
     - We can scale up when we reach a certain target level utilization
     - Auto Scaling uses target tracking method to try to stay close to target utilization
     - Currently does not scale down it table's consumption drops to zero
@@ -80,7 +80,7 @@
     - Instantly allocates capacity as needed with no concept of provisioned capacity
     - Costs more than traditional provisioning and auto-scaling
 - DynamoDB Accelerator (DAX)
-    - ![DAX overview](images/dax_overview.png)
+    - ![DAX overview](images/dax_overview.png)*DAX overview*
     - Cache in front of dynamoDB that can move from milliseconds response times to microseconds response times 
     - Good use cases of DAX:
         - Require fastest possible reads such as live auctions or securities trading
@@ -114,7 +114,7 @@
 - Topics = A channel for publishing a notification
 - Subscription = Configuring an endpoint to receive messages published on a topic
 - Endpoint protocols include:  http(s), email, SMS, SQS, Amazon Device Messaging (push notifications) and Lambda
-- ![Fan Our Architecture using SNS](images/fan_out_using_sns.png)
+- ![Fan Out Architecture using SNS](images/fan_out_using_sns.png)*Fan Out Architecture using SNS*
     - Very useful for architecture where you have several processes that can run in parallel
 
 ## Amazon SQS
@@ -130,6 +130,11 @@
     - Designed as a drop-in replacement for on-premise message brokers
     - Use MQ if you want an easy low-hassle path to migrate from existing message brokers to AWS
 - Advice:  Use SQS instead of Amazon MQ if you're creating a new application from scratch
+- Immediately after a message is received, it remains in the queue. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout, a period of time during which Amazon SQS prevents other consumers from receiving and processing the message. The default visibility timeout for a message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours.
+- For standard queues, the visibility timeout isn't a guarantee against receiving a message twice.
+- At-least-once delivery
+    - Amazon SQS stores copies of your messages on multiple servers for redundancy and high availability. On rare occasions, one of the servers that stores a copy of a message might be unavailable when you receive or delete a message.
+    - If this occurs, the copy of the message isn't deleted on that unavailable server, and you might get that message copy again when you receive messages. Design your applications to be idempotent (they should not be affected adversely when processing the same message more than once).
 
 ## AWS Lambda, Serverless Application Manager and EventBridge
 - AWS Lambda

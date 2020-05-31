@@ -74,6 +74,7 @@
     - Can be shared across multiple accounts withing Consolidated Billing
     - If you find you don't need your RI's, you can try to sell them on the Reserved Instance Marketplace.
     - ![Standard vs Convertible RIs](images/standard_vs_convertible_ris.png)*Standard vs Convertible RIs* 
+    - Reserved instances cannot be changed from one region to another, only between AZ's in the same region
 - RI Attributes
     - Instance Type - designates CPU, memory, networking capability
     - Platform - Linux, SUSE Linux, RHEL, Microsoft Windows, Microsoft SQL Server
@@ -118,7 +119,39 @@
 - Implement a Tagging Strategy out of the gate!
 - Be aggressive in formulating a pilot project: large-scale benefits make for dramatic business cases, where small-scale wins can easily be ignored.
 
+
 ## Sample Questions Notes
+- Some ideas to reduce cost:
+    - Create an EBS snapshot lifecycle process to delete outdated snapshots
+    - Use S3 lifecycle feature to transition infrequently accessed data to different storage classes
+    - Note:  Consolidating smaller RDS instances into single larger RDS instance does not guarantee to save money
+- Which statement is true about Dedicated Instances and Dedicated Hosts?
+    - Dedicated instances can run as Spot instances
+        - Dedicated Instances are available as on-demand, reserved and spot instances.
+    - Dedicated Hosts reserve capacity
+        - Dedicated Hosts reserve capacity because you are paying for the whole physical server that cannot be allocated to anyone else.
+- You have some extra unused RIs in one AZ but need in another AZ. If you want to make use of them in the other AZ, what can you do? 
+    - If these are Regional RIs, you do not need to do anything.
+    - If these are Zonal RIs, you first need to modify the zone.
+- Your company is evaluating the financial implications of a cloud migration. What should be your first step?
+    - Get a clear understanding of current costs
+- What is the primary AWS value proposition around cost?
+    - AWS offers agility without large upfront investments.
+        - The primary value proposition around cost for AWS is that it creates the opportunity for agility using a pay-as-you-go model
+- Which of these services can most directly help with right sizing your landscape? (Choose 2)
+    - AWS Trusted Advisor 
+    - AWS CloudWatch  
+- What expectation should you NOT set with your stakeholders about a cloud migration?
+    - Overall costs will decrease as soon as we start using cloud assets.
+- Choose the features of Consolidated Billing.
+    - Multiple standalone accounts are combined and may reduce your overall bill
+    - A single bill is issued containing the charges for all AWS Accounts
+    - Account charges can be tracked individually
+- Consolidated Billing offers what potential economy-of-scale benefit?
+    - Leveraging tiered pricing.
+- Your application has to process a very volatile inconsistent flow of data inbound in order. Which of the following options would be most reliable and cost-effective?
+    - Use SQS to receive the inbound messages and use a single reserved instance to process them.
+        - A buffering pattern is useful in smoothing demand. We can do this with SQS using FIFO to satisfy the in order requirement. 
 
 ## Other resources
 - https://d1.awsstatic.com/whitepapers/architecture/AWS-Cost-Optimization-Pillar.pdf

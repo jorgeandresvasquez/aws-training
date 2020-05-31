@@ -27,8 +27,19 @@
 4. Cost Control (12.5%)
 5. Continuous Improvement for Existing Solutions (29%)
 
+## Exam in numbers
+- duration:  180 minutes
+- questions:  75 questions. 
+- Average time by question:  2 minutes
+- Passing Score:  72%
+
 ## General Tips
 - Discard off the bat any options that are factually incorrect to restrict the options
+- Study to become an expert, not to pass an exam
+- Dig deep enough to understand the `WHY` of AWS, not just the `WHAT`
+- Understanding is reinforced by application
+- Make sure you're solid on all the fundamentals by repeating the Associate-level ACG practice exams
+- Skip very long questions and come back to them at the end of the exam
 
 ## Pearson onVue
 - https://home.pearsonvue.com/theopengroup/onvue

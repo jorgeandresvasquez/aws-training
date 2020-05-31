@@ -40,8 +40,8 @@
 - Recommended to use multi-part uploads if larger than 100MB
 - Closer to a db than to a file system
     - s3://bucket/finance/april/16/invoice_45675.pdf (this is a key, not a file path!)
-- ![S3 Consistency Explained](images/s3_consistency_explained.png)
-- ![S3 Security](images/s3_security.png)
+- ![S3 Consistency Explained](images/s3_consistency_explained.png)*S3 Consistency Explained*
+- ![S3 Security](images/s3_security.png)*S3 Security*
 - Supports versioning, old versions count as billable size until permanently delete
     - Integrated with Lifecycle Management
 - Supports Cross-region replication
@@ -53,10 +53,10 @@
     - Optimize storage costs
     - Adhere to data retention policies
 - S3 Analytics
-    - ![S3 Analytics Integration with other Services](images/s3_analytics.png)
+    - ![S3 Analytics Integration with other Services](images/s3_analytics.png)*S3 Analytics Integration with other Services*
 - S3 Encryption at Rest
-    - ![S3 Encryption at Rest Options](images/s3_encryption_at_rest_options.png)
-- ![S3 Nifty Tricks](images/s3_nifty_tricks.png)
+    - ![S3 Encryption at Rest Options](images/s3_encryption_at_rest_options.png)*S3 Encryption at Rest Options*
+- ![S3 Nifty Tricks](images/s3_nifty_tricks.png)*S3 Nifty Tricks*
 
 ## Amazon Glacier
 - Cheap, slow to respond, should be seldom accessed
@@ -66,7 +66,7 @@
 - Integrated with AWS S3 via Lifecycle Management
 - Faster retrieval options if you pay more
 - You don't have to use S3 to use glacier, has its own API
-- ![Core Components of Glacier](images/glacier_components.png)
+- ![Core Components of Glacier](images/glacier_components.png)*Core Components of Glacier*
 - Archives can be 40TB
 - Archives and vault locks are immutable (you can only delete or overwrite)
 - Vault lock process:
@@ -115,14 +115,14 @@
 - Provides local storage resources backed by AWS S3 and Glacier
 - Often used in disaster recovery preparedness to sync to AWS
 - Useful in cloud migrations
-- ![Amazon Storage Gateway Types](images/storage_gateway_types.png)
+- ![Amazon Storage Gateway Types](images/storage_gateway_types.png)*Amazon Storage Gateway Types*
 - iSCSI:
     - "Internet Small Computer Systems Interface"
     - Internet Protocol (IP)-based storage networking standard for linking data storage facilities
     - Provides block-level access to storage devices by carrying SCSI commands over a TCP/IP network
     - Used to facilitate data transfers over intranets and to manage storage over long distances
     - It can be used to transmit data over local area networks (LANs), wide area networks (WANs), or the Internet and can enable location-independent data storage and retrieval.
-- ![Scenario for Volume Gateway Cached Mode](images/volume_gateway_cached_mode_scenario.png)
+- ![Scenario for Volume Gateway Cached Mode](images/volume_gateway_cached_mode_scenario.png)*Scenario for Volume Gateway Cached Mode*
 - Has a feature named:  "bandwidth throttling"
 
 ## Amazon Workdocs
@@ -145,11 +145,11 @@
 - Aims to be a drop-in replacement for existing on-prem instances of same databases
 - Automated backups and patching in customer-defined maintenance windows
 - Push-button scaling, replication and redundancy
-- ![RDS Anti-patterns](images/rds_anti_patterns.png)
+- ![RDS Anti-patterns](images/rds_anti_patterns.png)*RDS Anti-patterns*
 - Multi-AZ deployments are not a read scaling solution, you cannot use a standby replica to serve read traffic. The standby is only there for failover.
 - Multi-AZ and Read Replicas maintain a copy of database but they are different in nature. Use Multi-AZ deployments for High Availability/Failover and Read Replicas for read scalability.
 - MySQL note:  Non-transactional storage engines like MyISAM don't support replication, you must use InnoDB
-- ![Multi AZ Disaster Recovery](images/multi_AZ_DR.png)
+- ![Multi AZ Disaster Recovery](images/multi_AZ_DR.png)*Multi AZ Disaster Recovery*
 
 ## DynamoDB
 - DynamoDB is a key value store with a maximum item size of 400KB.
@@ -169,13 +169,14 @@
     - Every record has to have a unique identifier or `primary key`
     - Can have a composite primary key with a `partition key` and a `sort key`
     - The primary key is used to generate a fixed hash to figure out the partition where the value gets stored, hence the name of `partition key`
-    - ![Secondary indexes definitions](images/secondary_indexes_description_dynamodb.png)
+    - ![Secondary indexes definitions](images/secondary_indexes_description_dynamodb.png)*Secondary indexes definitions*
         - Global Secondary index
         - Local Secondary index
-    - ![Secondary indexes usage scenarios](images/secondary_indexes_scenarios_dynamodb.png)
+    - ![Secondary indexes usage scenarios](images/secondary_indexes_scenarios_dynamodb.png)*Secondary indexes usage scenarios*
     - When you create a secondary index you need to select which attributes will be projected to that index
     - A secondary index resembles a view in RDBMS
-    - No more than 
+    - No more than 20 across all indexes
+    - - ![Secondary indexes Benefit vs Cost Scenarios](images/secondary_indexes_benefits_vs_cost.png)*Secondary indexes Benefit vs Cost Scenarios*  
 - Design best practices:
     - We can use global secondary indexes to create table replicas using same partition key and sort key as original table
         - The main table and Global Secondary Index can have different RCU/WCU Limits so we can assign each to different subsets of customers for example
@@ -193,6 +194,7 @@
     - Item sizes for writes are rounded up to the next 1 KB multiple. For example, writing a 500-byte item consumes the same throughput as writing a 1 KB item.
 
 ## Amazon Redshift
+- Stories on name origin:  Edwin Hubble's theory on whether a source of light is going away from us, and also going away from Oracle (red logo)
 - Fully managed, clustered peta-byte scale data warehouse
 - Extremely cost-effective as compared to some other on-premises data warehouse platforms
 - PostgreSQL compatible with JDBC and ODBC drivers available; compatible with most BI tools out of the box
@@ -202,7 +204,7 @@
     - Large repository for a variety of data on top of which you place frameworks or technologies to make use of it
     - Allows you to shorten the distance from when you collect the data to when you can actually make sense of it
     - Simplifies the identification of correlations between disparate data sets
-    - ![Data Lake overview](images/data_lake_overview.png)
+    - ![Data Lake overview](images/data_lake_overview.png)*Data Lake overview*
 - Workload Management
     - Amazon Redshift workload management (WLM) enables users to flexibly manage priorities within workloads so that short, fast-running queries won't get stuck in queues behind long-running queries.
     - Amazon Redshift WLM creates query queues at runtime according to service classes, which define the configuration parameters for various types of queues, including internal system queues and user-accessible queues. 
@@ -222,9 +224,11 @@
 - In Memory key/value store-not persistent in the traditional sense...
 - Redis you have option to backup in datastore
 - Billed by node size and hours of use
-- ![Use cases](images/elasticache_use_cases.png)
-- ![Memcached and Redis comparison](images/memcached_redis_comparison.png)
+- ![Use cases](images/elasticache_use_cases.png)*Use cases*
+- ![Memcached and Redis comparison](images/memcached_redis_comparison.png)*Memcached and Redis comparison*
 - VPCs don't support multicast, only unicast
+- ![ElastiCache Sample High Level Architecture](images/elasticache_sample_high_level_architecture.png)*ElastiCache Sample High Level Architecture*
+
 
 ## Other Datastore Options
 - Amazon Athena
@@ -232,14 +236,14 @@
     - Query raw objects as they sit in an S3 bucket
     - Use or convert your data to Parquet format if possible for a big performance jump
     - Similar in concept to Redshif Spectrum but:
-        - ![Athena vs Redshift Spectrum](images/athena_redshift_spectrum_comparison.png)
+        - ![Athena vs Redshift Spectrum](images/athena_redshift_spectrum_comparison.png)*Athena vs Redshift Spectrum*
 - Amazon Quantum Ledger Database (Amazon QLDB)
     - Based on blockchain concepts
     - Provides an immutable and transparent journal as a service without having to setup and maintain an entire blockchain framework
     - Centralized design (as opposed to decentralized consensus-based design for common blockchain frameworks) allows for higher performance and scalability
         - Descentralized take time for transactions to replicate among the nodes
     - Append-only concept where each record contributes to the integrity of the chain
-    - ![Conceptual overview of ledger db](images/ledge_db_record_hash.png)
+    - ![Conceptual overview of ledger db](images/ledge_db_record_hash.png)*Conceptual overview of ledger db*
     - Ledge databases are immutable, you cannot change a record that has been written in a chain
 - Amazon Managed Blockchain
     - Fully managed blockchain framework supporting open source frameworks of Hyperledger Fabric and Ethereum
@@ -267,7 +271,7 @@
     - Useful as analytics tool
 
 ## Comparing DB Options
-- ![Scenarios and DB Options](images/db_options_by_scenario.png)
+- ![Scenarios and DB Options](images/db_options_by_scenario.png)*Scenarios and DB Options*
 
 ## Pro Tips
 - Archiving and backups is often a great "pilot" to build AWS business case
