@@ -1,5 +1,5 @@
 ## Migration Strategies
-- ![Migration Strategies Definitions](images/migration_strategies_definitions.png)
+- ![Migration Strategies Definitions](images/migration_strategies_definitions.png)*Migration Strategies Definitions*
 - `Retire` has the least cost
 
 ## Cloud Adoption Framework
@@ -20,19 +20,19 @@
     - Is open for localization and interpretation
     - Is something you should adapt to your organizational culture
     - It is not a perfect step-by-step recipe to success
-- ![Typical Cloud Adoption Phases](images/typical_cloud_adoption_phases.png)
+- ![Typical Cloud Adoption Phases](images/typical_cloud_adoption_phases.png)*Typical Cloud Adoption Phases*
 - The Cloud Adoption Framework implies that there['s more to cloud adoption than just technology
 - To fully unlock the potential benefits of a cloud migration, a holistic approach must be considered
-- ![Areas of Focus of CAF](images/caf_areas_of_focus.png)
+- ![Areas of Focus of CAF](images/caf_areas_of_focus.png)*Areas of Focus of CAF*
 
 ## Hybrid Architectures
 - Hybrid Architectures make use of cloud resources along with on-premises resources
 - Very common first step as a pilot for cloud migrations
 - Infrastructure can augment or simply be extensions of on-prem platforms -VMWare for example (allow us to place VMs either on-prem or in the cloud).
 - Ideally, integrations are loosely coupled - meaning each end can exist without extensive knowledge of the other side
-- ![Common first step in Hybrid Architectures with Storage Gateway](images/hybrid_architecture_storage_gateway.png)
-- ![Hybrid Architectures with Middleware](images/hybrid_architecture_with_middleware.png)
-- ![Hybrid Architectures using VMWare](images/hybrid_architecture_using_vmware.png)
+- ![Common first step in Hybrid Architectures with Storage Gateway](images/hybrid_architecture_storage_gateway.png)*Common first step in Hybrid Architectures with Storage Gateway*
+- ![Hybrid Architectures with Middleware](images/hybrid_architecture_with_middleware.png)*Hybrid Architectures with Middleware*
+- ![Hybrid Architectures using VMWare](images/hybrid_architecture_using_vmware.png)*Hybrid Architectures using VMWare*
 
 ## Migration Tools
 - Storage Migration
@@ -44,7 +44,7 @@
     - Minimizes cutover downtime by syncing VMs incrementally
     - Supports Windows and Linux VMs only (just like AWS)
     - The Server Migration Connector is downloaded as a virtual appliance into your on-rem vSphere or Hyper-V setup
-    - ![How does AWS Server Migration Service work](images/how_aws_server_migration_work.png)
+    - ![How does AWS Server Migration Service work](images/how_aws_server_migration_work.png)*How does AWS Server Migration Service work*
     - Steps to use SMS:
         1. Go to SMS Connectors Setup Guide and download right connector for your environment (vCenter, SCVMM/HyperV, Azure) whidch can be OVA, VHD or Powershell script.
         2.  For VMWare environment:
@@ -58,7 +58,7 @@
     - DMS is used for smaller, simpler conversions and also supports MongoDB and DynamoDB.
     - SCT is used for larger, more complex datasets like data warehouses
     - DMS has replication function for on-premises to AWS or to Snowball or S3
-    - ![Database Migration Service in Action](images/dms_in_action.png)
+    - ![Database Migration Service in Action](images/dms_in_action.png)*Database Migration Service in Action*
     - Workload Qualification Framework (can be run using prepackaged AMI).
         - Assesses and rates the workload for the entire migraiton, helps estimate effort, helps derive action items (roadmap)
     - Old World to Aurora Migration Playbooks
@@ -93,7 +93,7 @@
 - Designed to move massive amounts of data to and from AWS
 - Data transfer is as fast or as slow as you're willing to pay a common carrier (UPS, DHL, FedEx, etc.)
 - Encrypted at rest
-- ![Amazon Snow Family Comparison](images/snow_family_comparison.png)
+- ![Amazon Snow Family Comparison](images/snow_family_comparison.png)*Amazon Snow Family Comparison*
 
 ## Pro Tips
 - Technology is often a minor part of a cloud migration project
@@ -107,7 +107,7 @@
     - The role of an Enterprise Architect is above all to be a boundary spanner
 
 ## Sample Questions Notes
-- ![Sample question #1 for migrations Chaper](images/challenge_question1_migrations.png)
+- ![Sample question #1 for migrations Chapter](images/challenge_question1_migrations.png)*Sample question #1 for migrations Chapter*
 - You just completed setup of your Direct Connect connection to AWS and want to transition over from your VPN but leave the VPN as a backup. What are some tasks to be done for minimal disruption? 
     - Configure both the VPN and Direct Connect with the same BGP prefix.
     - Update BGP weighting on your customer-side router to a higher weight than the VPN connection.

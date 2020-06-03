@@ -1,5 +1,5 @@
 ## Concepts
-- ![S3 Outage on February 2017 Downtime](images/s3_outage_feb_2017_minutes.png)
+- ![S3 Outage on February 2017 Downtime](images/s3_outage_feb_2017_minutes.png)*S3 Outage on February 2017 Downtime*
 - "Everything fails all the time" (Werner Vogels, Amazon CTO)
 - We need to architect for everything to fail
 - High Availability (HA)
@@ -16,17 +16,17 @@
 - Recovery Point Objective (RPO)
     - Acceptable amount of data loss measured in time
     - `P`is for the data that gets "poof"
-- ![RTO and RPO](images/rto_rpo.png)
-- ![Business Continuity Plan, HA, DR, RTO and RPO](images/business_continuity_plan_ha_hr_rpo_rto.png)
-- ![Disaster Categories](images/disaster_categories.png)
+- ![RTO and RPO](images/rto_rpo.png)*RTO and RPO*
+- ![Business Continuity Plan, HA, DR, RTO and RPO](images/business_continuity_plan_ha_hr_rpo_rto.png)*Business Continuity Plan, HA, DR, RTO and RPO*
+- ![Disaster Categories](images/disaster_categories.png)*Disaster Categories*
     - Human error is always another category
 
 ## Disaster Recovery Architectures
-- ![4 main disaster recovery architectures compared by time and cost](images/disaster_recovery_architectures.png)
-- ![Backup and Restore DR Architecture](images/backup_and_restore_dr.png)
-- ![Pilot Light DR Architecture](images/pilot_light_dr.png)
-- ![Warm Standby DR Architecture](images/warm_standby_dr.png)
-- ![Multi Site DR Architecture](images/multi_site_dr.png)
+- ![4 main disaster recovery architectures compared by time and cost](images/disaster_recovery_architectures.png)*4 main disaster recovery architectures compared by time and cost*
+- ![Backup and Restore DR Architecture](images/backup_and_restore_dr.png)*Backup and Restore DR Architecture*
+- ![Pilot Light DR Architecture](images/pilot_light_dr.png)*Pilot Light DR Architecture*
+- ![Warm Standby DR Architecture](images/warm_standby_dr.png)*Warm Standby DR Architecture*
+- ![Multi Site DR Architecture](images/multi_site_dr.png)*Multi Site DR Architecture*
     - Strictly speaking DNS records do have a TTL so once health checks trigger a change in route53 they might be some downtime
 
 ## Storage HA Options
@@ -45,8 +45,8 @@
             - Most common setup used
             - Parity is distributed amongst all disks
         - AWS recommends RAID-0 and RAID-1 with their EBS volumes because EBS volumes are accessed over a network and writing those parity bits sucks a lot of IO
-        - ![RAID Configuration Comparison](images/raid_comparison.png)
-    - ![How RAID levels impact throughput and IOPS](images/raid_iops_throughput.png)
+        - ![RAID Configuration Comparison](images/raid_comparison.png)*RAID Configuration Comparison*
+    - ![How RAID levels impact throughput and IOPS](images/raid_iops_throughput.png)*How RAID levels impact throughput and IOPS*
 - S3
     - Standard Storage Class (99.99% availability = 52.6 minutes/year)
     - Standard Infrequent Access (99.9% availability = 8.76 hours/year)
@@ -62,7 +62,7 @@
     - Each file object and metadata is stored across multiple AZs
     - Can be accessed from all AZs concurrently
     - Mount targets are highly available
-    - ![EFS HA example](images/efs_ha_example.png)
+    - ![EFS HA example](images/efs_ha_example.png)*EFS HA example*
 - Other Options
     - Amazon Storage Gateway
         - Good way to migrate on-premise data to AWS for offsite backup
@@ -73,7 +73,7 @@
     - Glacier
         - Safe offsite archive storage
         - Long-term storage with rare retrieval needs
-    - ![Other Storage Opeions Usage Examples](images/other_storage_usage_examples.png)
+    - ![Other Storage Opeions Usage Examples](images/other_storage_usage_examples.png)*Other Storage Opeions Usage Examples*
 
 ## Compute Options
 - HA Approaches for Compute
@@ -83,7 +83,7 @@
     - Reserved instances is the only way to guarantee that resources will be available when needed
     - Auto Scaling and Elastic Load Balancing work together to provide automated recovery by maintaining minimum instances
     - Route53 Health Checks also provide "self-healing" redirection of traffic
- - ![Route 53 Health Checks Example](images/route53_health_checks_example.png)  
+ - ![Route 53 Health Checks Example](images/route53_health_checks_example.png)*Route 53 Health Checks Example*  
 
 ## Database HA Options
 - HA Approaches for Databases
@@ -93,11 +93,11 @@
     - Frequent RDS snapshots can protect against data corruption or failure - and they won't impact performance of multi-AZ deployment.
     - Regional replication is also an option, but will not be strongly consistent
     - If database is on EC2 then you'll have to design HA yourself
-    - ![RDS with Standby and Replica](images/rds_standby_replica.png)
+    - ![RDS with Standby and Replica](images/rds_standby_replica.png)*RDS with Standby and Replica*
         - Dotted lines represent synchronous replication
         - Continuous lines represent asynchronous replication and this is why they are called `eventually consistent replicas`
-    - ![RDS with Standby and Replica After Loosing the Master](images/rds_standby_replica_loosing_master.png)
-    - ![RDS with Standby and Replica After Loosing a whole region](images/rds_standby_replica_loosing_region.png)
+    - ![RDS with Standby and Replica After Loosing the Master](images/rds_standby_replica_loosing_master.png)*RDS with Standby and Replica After Loosing the Master*
+    - ![RDS with Standby and Replica After Loosing a whole region](images/rds_standby_replica_loosing_region.png)*RDS with Standby and Replica After Loosing a whole region*
         - If we loose a whole region then we can promote one of the Read Replicas to the Master
         - We have to promote it to a single instance first and then reconfigure it to do multi-AZ
         - Promoting a read replica to a master is usually a big deal, so better to do it automatically

@@ -24,10 +24,10 @@
     - Attach to an ELB
     - Define a Health Check Grace Period
     - Define size of group to stay at initial size OR Use Scaling Policy which can be based from metrics
-- ![Scaling Types Examples](images/scaling_types.png)
-- ![Auto-Scaling Policies](images/auto_scaling_policies.png)
-- ![Scaling Cooldown Concept for EC2](images/ec2_scaling_cooldown.png)
-- ![Application Autoscaling](images/application_autoscaling.png)
+- ![Scaling Types Examples](images/scaling_types.png)*Scaling Types Examples*
+- ![Auto-Scaling Policies](images/auto_scaling_policies.png)*Auto-Scaling Policies*
+- ![Scaling Cooldown Concept for EC2](images/ec2_scaling_cooldown.png)*Scaling Cooldown Concept for EC2*
+- ![Application Autoscaling](images/application_autoscaling.png)*Application Autoscaling*
 - Predictive Scaling
     - Can dynamically scale based on learning your load and calculating expected capacity
 - For Amazon EC2 Auto Scaling, there are two primary process types: Launch and Terminate. The Launch process adds a new Amazon EC2 instance to an Auto Scaling group, increasing its capacity. The Terminate process removes an Amazon EC2 instance from the group, decreasing its capacity.
@@ -45,13 +45,13 @@
 - Record consists of Partition key, sequence number and data blob (up to 1 MB)
 - Transient Data Store - Default retention of 24 hours, but can be configured for up to 7 days
 - Types of Streams:
-    - ![Kinesis Video Stream](images/kinesis_video_stream.png)
-    - ![Kinesis Data Stream](images/kinesis_data_stream.png)
-    - ![Kinesis Firehose](images/kinesis_firehose.png)
+    - ![Kinesis Video Stream](images/kinesis_video_stream.png)*Kinesis Video Stream*
+    - ![Kinesis Data Stream](images/kinesis_data_stream.png)*Kinesis Data Stream*
+    - ![Kinesis Firehose](images/kinesis_firehose.png)*Kinesis Firehose*
 - Kinesis Data Analytics
     - Allows us to do analytics on the data as it is coming in against streams
-- ![Kinesis Stream and Firehose Sample Architecture from Maker Lab](images/kinesis_stream_firehose_sample_architecture.png)
-- ![Kinesis Data Stream Concepts](images/kinesis_data_stream_concepts.png)
+- ![Kinesis Stream and Firehose Sample Architecture from Maker Lab](images/kinesis_stream_firehose_sample_architecture.png)*Kinesis Stream and Firehose Sample Architecture from Maker Lab*
+- ![Kinesis Data Stream Concepts](images/kinesis_data_stream_concepts.png)*Kinesis Data Stream Concepts*
     - When writing to a shard in a Kinesis Data Stream, each shard supports ingestion of up to 1 MB of data per second or 1,000 records written per second. 
     - When reading from a shard, each shard supports output of 2 MB of data per second. 
     - You choose an initial number of shards to allocate for your Kinesis Data Stream, then can update your shard allocation over time. 
@@ -108,7 +108,7 @@
 - Origins can be S3, EC2, ELB or another web server
 - Multiple origins can be configured
 - Use behaviors to configure serving up origin content based on URL paths
-- ![Cloudfront Origins and Behaviors](images/cloudfront_origins_and_behaviors.png)
+- ![Cloudfront Origins and Behaviors](images/cloudfront_origins_and_behaviors.png)*Cloudfront Origins and Behaviors*
 - Invalidation Requests
     - Simply delete the file from the origin and wait for the TTL to expire
     - Use the AWS Console to request invalidation for all content or a specific path such as /images/*
@@ -168,7 +168,7 @@
     - Extension of CloudFormation so you can use everything CLoudFormation can provide by way of resources and functions
 - AWS Serverless Application Repository
     - https://serverlessrepo.aws.amazon.com/applications
-- ![SAM vs The Serverless Framework](images/sam_vs_serverless_framework.png)
+- ![SAM vs The Serverless Framework](images/sam_vs_serverless_framework.png)*SAM vs The Serverless Framework*
 
 ## Amazon EventBridge
 - Designed to link variety of AWS and 3rd party apps to rule logic for launching other event-based actions
@@ -192,7 +192,7 @@
     2. Decider
         - Program that controls coordination of tasks such as their ordering, concurrency and scheduling
 - Workers don't trigger stuff, they use a process called long-polling to know when is their turn
-- ![Example AWS SWF](images/example_aws_swf.png)
+- ![Example AWS SWF](images/example_aws_swf.png)*Example AWS SWF*
 
 ## Step Functions and Batch
 - AWS Step Functions
@@ -213,18 +213,18 @@
         2. Create a Job Queue with priority and assigned to a Compute Environment
         3. Create a Job Definition:  Script or JSON, environment variables, mount points, IAM role, container image, etc.
         4. Schedule the Job
-- ![Step Functions vs SWF vs SQS vs AWS Batch](images/stepfunctions_vs_swf_vs_sqs_vs_batch.png)
+- ![Step Functions vs SWF vs SQS vs AWS Batch](images/stepfunctions_vs_swf_vs_sqs_vs_batch.png)*Step Functions vs SWF vs SQS vs AWS Batch*
 
 ## Elastic Map Reduce
-- ![Hadoop Landscape pieces](images/hadoop_landscape_pieces.png)
+- ![Hadoop Landscape pieces](images/hadoop_landscape_pieces.png)*Hadoop Landscape pieces*
 - AWS EMR is just a Managed Hadoop framework for processing huge amounts of data
 - Also supports:  Apache Spark, HBase, Presto and Flink
 - Most commonly used for log analysis, financial analysis or extract, translate and loading (ETL) activities where you have a massive amount of data to process
 - Commong EMR terms:
     - a `Step` is a programmatic task for performing some process on the data (ex:  count words)
     - a `Cluster` is a collection of EC2 instances provisioned by EMR to run your steps
-    - [Components of AWS EMR](images/emr_components.png)
-- [Sample EMR Process](images/sample_emr_process.png)
+    - [Components of AWS EMR](images/emr_components.png)*Components of AWS EMR*
+- [Sample EMR Process](images/sample_emr_process.png)*Sample EMR Process*
 
 ## Pro Tips
 - Elasticity will drive most benefit from the cloud
