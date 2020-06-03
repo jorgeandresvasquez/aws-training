@@ -66,6 +66,9 @@
     - Cons:  May require additional telecom and hosting provider relationships and/or new network circuits
     - How:  Work with your existing Data Networking Provider; Create Virtual Interfaces (VIF) to connect to VPCs (private VIF) or other AWS service like S3 or Glacier (public VIF)
         - ![AWS Direct Connect](images/aws_direct_connect.png)*AWS Direct Connect*
+    - Direct Connect Gateway
+        -  ![Direct Connect Gateway](images/direct_connect_gateway.png)*Direct Connect Gateway*
+        - Direct Connect Gateway is a service that helps on connecting AWS Direct Connect connection over a private virtual interface to one or more VPCs in the same account that are located in the same or different Regions. 
 - AWS Direct Connect Plus VPN
     - What:  IpSec VPN connection over private lines
     - When:  Want added security of encrypted tunnel over Direct Connect
@@ -161,6 +164,7 @@
 - ![Routing Example](images/routing_example.png)*Routing Example*
     - pl-xxxxxxx (pl stands for private link)
     - vpg-xxxxxxx (vpg stands for virtual private gateway used to connect to on-premises network)
+- ![Routing Example: One Web Server with multiple Routes](images/routing_example_one_web_server_multiple_routes.png)*Routing Example: One Web Server with multiple Routes*
 
 ## Border Gateway Protocol (BGP)
 - Popular routing protocol for the internet
@@ -170,6 +174,7 @@
 - AWS supports BGP community tagging as a way to control traffic scope and route preference
 - Required TCP port 179 + ephemeral ports
 - Autonomous System Number (ASN) = Unique endpoint identifier
+    - Public ASN numbers are controlled by IANA
 - Weighting is local to the router and higher weight is preferred part for outbound traffic
 
 ## Enhanced Networking
@@ -222,8 +227,17 @@
 - ![SSL and TLS Evolution](images/ssl_tls_evolution.png)*SSL and TLS Evolution*
 
 ## Elastic Load Balancers
+- Features:
+    - Protocol Support
+        - Supports routing and load balancing of http, https, TCP, and TLS traffic to EC2 instances
+    - Single stable DNS name
+        - Using an ELB provides a single stable DNS name for configuration, to support private internal and public-facing external applications
+        - Note:  NLB provides a stable set of IP addresses
+    - Supports Health Checks
+        - Ensure that traffic is not routed to unhealthy or failing instances.  ELBs automatically scale based on CloudWatch metrics.
+- ![Features and Support by ELB type](images/features_by_elb_type.png)*Features and Support by ELB type*
 - Their main function is to distribute inbound connections to one or many backend endpoints
-- 3 different options:
+- 3 different types:
     1. Application Load Balancer (Layer 7)
     2. Network Load Balancer (Layer 4-TCP layer)
         - Not too many options for routing other than port number
@@ -240,9 +254,48 @@
 - Can be used for public or private workloads
 - Consume IP addresses within a VPC subnet
     - They can scale and as they do they can consume more IP addresses
+- Requirements for each subnet:
+    - The subnet must be a public subnet for internet-facing load balancers
+    - The subnet must be sized /27 or larger.  You cannot use a /28 or anything smaller for an ELB
+    - The subnet must have at least 8 available IP addresses
 - ![Similarities Between ELBs](images/elb_similarities.png)*Similarities Between ELBs*
 - ![Differences Between ELBs](images/elb_differences.png)*Differences Between ELBs*
 - ![ALB routing example](images/alb_routing_example.png)*LB routing example*
+- Cross-zone load balancing
+    - load balance taking into account the number of instances in each AZ
+    - does not take into account the instance types
+    - ![Cross-zone load balancing](images/cross_zone_load_balancing.png)*Cross-zone load balancing*
+    - Only applicable to the Classic Load Balancer and the Application Load balancer
+- ELB Listeners
+    - ![ELB Listerners](images/elb_listeners.png)*ELB Listerners*
+- ELB Targets
+    - The destinations for your traffic
+    - Targets are selected destinations where Application Load Balancers and Network Load Balancers send traffic.
+    - Targets are associated with target groups and can be different things
+    - Target Groups
+        - Simply group targets together
+        - Allow you to group things together like EC2 instances
+        - Makes it easy to specify the same rules across multiple targets
+    - Target types:
+        - EC2 instances
+        - IP address
+        - lambda function
+    - Targets and target groups are only applicable for ALBs and NLBs
+- SSL/TLS with ELBs
+    - ALBs and NLBs support SNI or the ability to have multiple certificates per listener
+    - CLBs do not support SNI
+    - You can manage and apply the certificate to your load balancer manually or use ACM (Amazon Certificate Manager).
+    - SSL and TLS use an X.509 certificate
+    - To ensure end-to-end encryption you will need to create and manage certificates to EC2 instances
+- Steps for target group creation:
+    1. Create a launch configuration to define AMI and instance creation rules (ex:  Cloudwatch monitoring frequency)
+    1. Create an ASG using launch configuration from previous step
+        - Define group size
+        - grace period:  to allow instances to launch before pinging them for health checks
+        - Scaling policy (keep initial size, CPU usage, etc.)
+- To discover the availability of your EC2 instances, an ELB periodically sends pings, attempts connections, or sends requests to test the EC2 instances. These tests are called health checks. The status of the instances that are healthy at the time of the health check is InService. The status of any instances that are unhealthy at the time of the health check is OutOfService.
+- When you allow the Auto Scaling group (ASG) to receive the traffic from the ELB, it gets notified when the instance becomes unhealthy and then it terminates it.
+    
 
 ## Pro Tips
 - Direct Connect may be a more complex and costlier option to setup, but it could save big on bandwidth costs
@@ -253,7 +306,7 @@
     - Can be useful for blue/green deployments or rolling updates
 
 ## Sample Questions Notes
-- MTU for an EC2 instance:
+- MTU (Maximum Transmission Unit) for an EC2 instance:
     - MTU:  The maximum transmission unit of a network connection is the size, in bytes, of the largest permissible packet that can be passed over the connection.
     - The larger the MTU of a connection, the more data that can be passed in a single packet. 
     - Ethernet packets consist of the frame, or the actual data you are sending, and the network overhead information that surrounds it.

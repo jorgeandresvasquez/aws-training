@@ -57,6 +57,13 @@
 - S3 Encryption at Rest
     - ![S3 Encryption at Rest Options](images/s3_encryption_at_rest_options.png)*S3 Encryption at Rest Options*
 - ![S3 Nifty Tricks](images/s3_nifty_tricks.png)*S3 Nifty Tricks*
+- Multipart upload advantages:
+    - Improved throughput—you can upload parts in parallel to improve throughput.
+    - Quick recovery from any network issues—smaller part size minimizes the impact of restarting a failed upload due to a network error.
+    - Pause and resume object uploads—you can upload object parts over time. Once you initiate a multipart upload there is no expiry; you must explicitly complete or abort the multipart upload.
+    - Begin a upload before you know the final object size—you can upload an object as you are creating it.
+- Hosting a static website:
+    - Previously only allowed domain prefix when we are creating AWS Route53 aliases for AWS S3 static websites was the “www”, now you can use other subdomains:  Ex:  mydomain.com, downloads.mydomain.com    
 
 ## Amazon Glacier
 - Cheap, slow to respond, should be seldom accessed
@@ -95,9 +102,21 @@
     - Migrate a system to a new AZ or Region
     - Convert unencrypted volume to an encrypted volume
     - As you take new snapshots they only occupy the diff data between the previous snapshot and the EBS new state when snapshot is taken
+    - Snapshots can only be created every 2, 3, 4, 6, 8, 12 or 24 hours
+    - Copying a snapshot to a new Region is commonly used for geographic expansion, migration, disaster recovery, etc.
+    - EBS snapshots lifecycle policies contain some rules. One of the rules is that when you copy a snapshot created by a policy, the new copy is not influenced by the retention schedule.
 - Data lifecycle Manager
     - Schedule snapshots for volumes or instances every X hours
     - Retention rules to remove stale snapshots
+- ![Use cases for different EBS Volume Types](images/use_cases_ebs_volume_types.png)*Use cases for different EBS Volume Types*
+- The EBS volume types can be modified in flight without the volume being detached or the instance being restarted. However, there are some limitations that need to be noticed.
+
+## Instance Store
+- An instance store provides temporary block-level storage for your instance. This storage is located on disks that are physically attached to the host computer. 
+- The instance type determines the size of the instance store available and the type of hardware used for the instance store volumes.
+- To backup and migrate an instance store to an EBS volume:
+    - Create a new EBS volume and attach the volume to EC2. Migrate the MySQL database to the EBS volume using a disk management or migration tool.
+    - Backup the database filestore as is to S3.
 
 ## EFS
 - Implementation of NFS File Share
@@ -109,6 +128,16 @@
     - Keeps on-premise storage in sync with EFS or S3
 - around 3x more expensive than EBS
 - around 20x  more expensive than S3
+- EFS support two throughput modes to choose from for your file system:
+    1. Bursting Throughput
+        - With Bursting Throughput mode, throughput on Amazon EFS scales as your file system grows. File-based workloads are typically spiky, driving high levels of throughput for short periods of time.
+    1. Provisioned Throughput. 
+        - Allows applications configured to provision the throughput irrespective of the data stored inside the file system. This means applications with higher throughput requirements can use this mode to achieve higher performance.
+        - Keep in mind that Provisioned Throughput is billed separately from the data storage depending on the capacity.
+- The encryption of data at rest has to be enabled when the Amazon EFS file system is created. The encryption of data in transit can be enabled when the file system is mounted in EC2 instance
+- Encryption of data in transit is enabled by connecting to Amazon EFS using TLS. It is recommend by AWS to use the `mount helper` because it's the simplest option. The helper is in the amazon-efs-utils package which is an open-source collection of Amazon EFS tools.
+    - Example command:  ```sudo mount -t efs <EFS_File_System_Id> -o tls /mnt/efs ```
+    - It is recommended to create mount targets in each of your VPC's AZ's so that EC2 instances across your VPC can access the file system
 
 ## Amazon Storage Gateway
 - Virtual machine that you run on-premises with VMWare or HyperV or via a specially configured Dell hardware appliance
@@ -124,6 +153,8 @@
     - It can be used to transmit data over local area networks (LANs), wide area networks (WANs), or the Internet and can enable location-independent data storage and retrieval.
 - ![Scenario for Volume Gateway Cached Mode](images/volume_gateway_cached_mode_scenario.png)*Scenario for Volume Gateway Cached Mode*
 - Has a feature named:  "bandwidth throttling"
+- All gateway-cached volume data and snapshot data is stored in Amazon S3 encrypted at rest using server-side encryption (SSE) and it cannot be visible or accessed with S3 API or any other tools.
+- You can take point-in-time snapshots of gateway volumes that are made available in the form of Amazon EBS snapshots.
 
 ## Amazon Workdocs
 - Amazon's version of dropbox or google drive
@@ -150,6 +181,34 @@
 - Multi-AZ and Read Replicas maintain a copy of database but they are different in nature. Use Multi-AZ deployments for High Availability/Failover and Read Replicas for read scalability.
 - MySQL note:  Non-transactional storage engines like MyISAM don't support replication, you must use InnoDB
 - ![Multi AZ Disaster Recovery](images/multi_AZ_DR.png)*Multi AZ Disaster Recovery*
+- In RDS (Relational Database Service) multi-Availability Zone deployment if the primary DB instance fails the canonical name record (CNAME) is changed from primary to standby.
+- Best practices include implementing database connection retry at the application layer
+- Failovers, as defined by the interval between the detection of the failure on the primary and the resumption of transactions on the standby, typically complete within 1-2 minutes.
+- Restoring a DB
+    - You can restore a DB instance to a specific point in time, creating a new DB instance. When you restore a DB instance to a point in time, the default DB security group is applied to the new DB instance.
+    - Steps to restore a DB instance to a specified time:
+        1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
+        1. In the navigation pane, choose Databases.
+        1. Choose the DB instance that you want to restore.
+        1. For Actions, choose Restore to point in time.
+            The Launch DB Instance window appears.
+        1. Choose Latest restorable time to restore to the latest possible time, or choose Custom to choose a time.
+            - If you chose Custom, enter the date and time that you want to restore the instance to.
+            - Note:
+                - Times are shown in your local time zone, which is indicated by an offset from Coordinated Universal Time (UTC). For example, UTC-5 is Eastern Standard Time/Central Daylight Time.
+        1. For DB instance identifier, enter the name of the restored DB instance, and then complete the other options.
+        1. Choose Launch DB Instance.
+- You need to use the database change (transaction) logs along with the backups to restore your database to a point in time.
+- RDS on VMWare:
+    - RDS on VMware lets you deploy managed databases in on-premises VMware environments using the Amazon RDS technology.
+    - RDS on VMware does not support Amazon Aurora.
+    - Requires vSphere v6.5 or higher VMware vSphere Enterprise Plus Edition
+    - Features:
+        - Patching for databases
+        - Multi-AZ
+        - backup and retention
+    - Amazon RDS on VMware database instances can be easily migrated to Amazon RDS database instances in AWS with no impact to uptime.
+        - You just need to promote the read-replica to be the new RDS instance.
 
 ## DynamoDB
 - DynamoDB is a key value store with a maximum item size of 400KB.
@@ -176,7 +235,7 @@
     - When you create a secondary index you need to select which attributes will be projected to that index
     - A secondary index resembles a view in RDBMS
     - No more than 20 across all indexes
-    - - ![Secondary indexes Benefit vs Cost Scenarios](images/secondary_indexes_benefits_vs_cost.png)*Secondary indexes Benefit vs Cost Scenarios*  
+    - ![Secondary indexes Benefit vs Cost Scenarios](images/secondary_indexes_benefits_vs_cost.png)*Secondary indexes Benefit vs Cost Scenarios*  
 - Design best practices:
     - We can use global secondary indexes to create table replicas using same partition key and sort key as original table
         - The main table and Global Secondary Index can have different RCU/WCU Limits so we can assign each to different subsets of customers for example
@@ -192,6 +251,14 @@
     - A write capacity unit represents one write per second, for an item up to 1 KB in size.
     - For example, suppose that you create a table with 10 write capacity units. This allows you to perform 10 writes per second, for items up to 1 KB in size per second.
     - Item sizes for writes are rounded up to the next 1 KB multiple. For example, writing a 500-byte item consumes the same throughput as writing a 1 KB item.
+- Amazon DynamoDB provides fast access to items in a table by specifying primary key values. However, many applications might benefit from having one or more secondary (or alternate) keys available, to allow efficient access to data with attributes other than the primary key. To address this, you can create one or more secondary indexes on a table, and issue Query or Scan requests against these indexes.
+- Global Tables
+    - Amazon DynamoDB global tables provide a fully managed solution for deploying a multiregion, multi-master database, without having to build and maintain your own replication solution. With global tables you can specify the AWS Regions where you want the table to be available. DynamoDB performs all of the necessary tasks to create identical tables in these Regions and propagate ongoing data changes to all of them.
+- Exporting and Importing DynamoDB Data Using AWS Data Pipeline:
+    - You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region.
+    - To export a DynamoDB table, you use the AWS Data Pipeline console to create a new pipeline. The pipeline launches an Amazon EMR cluster to perform the actual export. Amazon EMR reads the data from DynamoDB, and writes the data to an export file in an Amazon S3 bucket
+    - ![Exporting Data from DynamoDB to S3](images/export_from_dynamodb_to_s3.png)*Exporting Data from DynamoDB to S3*  
+-  CloudWatch metrics can tell the difference between `provisioned capacity` and `consumed capacity`, which helps understand what is the proper value to the provisioned capacity
 
 ## Amazon Redshift
 - Stories on name origin:  Edwin Hubble's theory on whether a source of light is going away from us, and also going away from Oracle (red logo)

@@ -65,6 +65,11 @@
         - Collection of resources supporting key business processes
         - Resources allocated to various departments or cost centers
 
+## Cost allocation tags
+- AWS provides two types of cost allocation tags, an AWS generated tags and user-defined tags. AWS defines, creates, and applies the AWS generated tags for you, and users define, create, and apply user-defined tags.
+- For tags to appear in the cost allocation report you have to activate them in the Billing and Cost Management Console.
+    - Tags start appearing on the cost allocation resport after they're activated but don't apper on earlier reports
+
 ## Spot Instances and Reserved Instances
 - Reserved Instances
     - Purchase (or agree to purchase) usage of EC2 instances in advance for a significant discount over on-demand pricing

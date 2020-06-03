@@ -1,5 +1,5 @@
 ## Concepts
-- ![Shared Responsibility Model](images/shared_responsibility_model.png)
+- ![Shared Responsibility Model](images/shared_responsibility_model.png)*Shared Responsibility Model*
 - Principle of Least Privilege
     - Give users or services nothing more than those privileges required to perform their intended function
     - And only when they need them
@@ -36,12 +36,17 @@
     - Tagging
     - Resource Groups
     - Consolidated Billing
+        - The usage across all accounts can share the volume pricing discounts and Reserved Instance discounts.
+        - The master pays the charges of all the member accounts.
+        - Although the owners of the linked accounts aren't charged, they can still see their usage and charges by going to their AWS Bills pages.
+        - In order to receive the cost benefit from Reserved DB Instances in Consolidated Billing, all the attributes of DB Instances (DB Engine, DB Instance class, Deployment type, and License Model) in another account should match the attributes of the Reserved DB Instances.
+
 - Examples of Account Setups:
-    - ![Identity Account Structure](images/identity_account_structure.png)
-    - ![Logging Account Structure](images/logging_account_structure.png)
-    - ![Publishing Account Structure](images/publishing_account_structure.png)
-    - ![Information Security Account Structure](images/information_security_account_structure.png)
-- ![Organizations Setup Example](images/organizations_setup_example.png)
+    - ![Identity Account Structure](images/identity_account_structure.png)*Identity Account Structure*
+    - ![Logging Account Structure](images/logging_account_structure.png)*Logging Account Structure*
+    - ![Publishing Account Structure](images/publishing_account_structure.png)*Publishing Account Structure*
+    - ![Information Security Account Structure](images/information_security_account_structure.png)*Information Security Account Structure*
+- ![Organizations Setup Example](images/organizations_setup_example.png)*Organizations Setup Example*
     - Consolidated Billing allows economies of scale and discounts
     - SCPs cascade down a tree, so if we apply at `Medical Equipment` level it will affect `Regulate` and `Unregulated` accounts
     - Ex of SCP:  Deny ability to change IAM roles or CloudTrail settings
@@ -66,7 +71,7 @@
     - Part of multi-layer Least Privilege concept to explicitly allow and deny
 
 ## AWS Directory Services
-- ![Types of Directory Services Offered](images/types_directory_services_offered.png)
+- ![Types of Directory Services Offered](images/types_directory_services_offered.png)*Types of Directory Services Offered*
 - ![AD Connector vs Simple AD](images/ad_connector_vs_simple_ad.png)*AD Connector vs Simple AD*
 
 ## Credential and Access Management
@@ -114,8 +119,10 @@
     - Must be within a VPC and can access via VPC peering
     - Does not natively integrate with many AWS services like KMS, but rather requires custom application scripting
     - Offload SSL from web servers, act as an issuing CA, enable TDE (Transparent Data Encryption) for Oracle databases
-    - ![2 Versions of CloudHSM](images/cloudhsm_versions.png)
-    - ![CloudHSM vs KMS](images/cloudhsm_vs_kms.png)
+    - ![2 Versions of CloudHSM](images/cloudhsm_versions.png)*2 Versions of CloudHSM*
+    - ![CloudHSM vs KMS](images/cloudhsm_vs_kms.png)*CloudHSM vs KMS*
+    - You can improve Your Web Server's Security with SSL/TLS Offload in AWS CloudHSM
+        - ![How SSL/TLS Offload with AWS CloudHSM Works](images/ssl_tls_offload_to_cloudhsm.png)*How SSL/TLS Offload with AWS CloudHSM Works*
 - AWS Certificate Manager (for encryption in-transit)
     - Managed service that lets you provision, manage and deploy public or private SSL/TLS certificates
     - Directly integrated into many AWS services like Cloudfront, ELB, and API Gateway
@@ -124,22 +131,24 @@
     - Supports wildcard domains (*.domain.com) to cover all your subdomains
     - Managed certificate renewal (no embarrassing "certificate expired" messages for customers)
     - Can create a managed private Certificate Authority as well for internal or proprietary apps, services or devices
+- S3
+    - Server-side encryption with Amazon S3-managed encryption keys (SSE-S3) employs strong multi-factor encryption. Amazon S3 encrypts each object with a unique key. As an additional safeguard, it encrypts the key itself with a master key that it regularly rotates. Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encryption Standard (AES-256), to encrypt your data.
 
 ## Distributed Denial of Service Attacks
 - Phishing is a very common way to compromise systems that can later participate in DDoS Attacks
-- ![Amplification/Reflection Attack](images/amplification_reflection_attack.png)
+- ![Amplification/Reflection Attack](images/amplification_reflection_attack.png)*Amplification/Reflection Attack*
     - Uses Spoofed Address to overwhelm target server
 - Application layer (layer 7) attacks can flood target web server with http get calls and deny access to real customers by bringing server down
-- ![Mitigating DDoS](images/mitigating_ddos.png)
-- ![Sample Architecture with DDoS Mitigation Controls](images/architecture_with_ddos_controls.png)
+- ![Mitigating DDoS](images/mitigating_ddos.png)*Mitigating DDoS*
+- ![Sample Architecture with DDoS Mitigation Controls](images/architecture_with_ddos_controls.png)*Sample Architecture with DDoS Mitigation Controls*
 
 ## IDS (Instruder Detection System) and IPS (Intruder Prevention System)
 - `Intruder Detection System`:  Watches the network and systems for suspicious activity that might indicate someone trying to compromise a system
 - `Intruder Prevention System`:  Tries to prevent exploits by sitting behind firewalls and scanning and analyzing suspicious content for threats
 - Normally comprised of a `Collection/Monitoring System` and `Monitoring agents on each system`
 - Logs collected or analyzed in Cloudwatch, S3 or third-party tools (Splunk, SumoLogic, etc.) sometimes called a `Security Information and Event Management (SIEM) System`
-- ![IDS/IPS sample architecture](images/ids_ips_sample_architecture.png)
-- ![Cloudwatch vs Cloudtrail](images/cloudwatch_vs_cloudtrail.png)
+- ![IDS/IPS sample architecture](images/ids_ips_sample_architecture.png)*IDS/IPS sample architecture*
+- ![Cloudwatch vs Cloudtrail](images/cloudwatch_vs_cloudtrail.png)*Cloudwatch vs Cloudtrail*
     - Cloudwatch is more in operations sense and CloudTrail is more in activity sense
 
 ## AWS Service Catalog
@@ -150,8 +159,8 @@
 - Allows end users to be self-sufficient while upholding enterprise standards for deployments
 - Deployment templates are cloudFormation templates
 - Administrators can version and remove products.  Existing running product versions will not be shutdown.
-- ![AWS Service Catalog Constraints](images/service_catalog_constraints.png)
-- ![Service Catalog in Multi-Account Scenario](images/service_catalog_multi_account_scenario.png)
+- ![AWS Service Catalog Constraints](images/service_catalog_constraints.png)*AWS Service Catalog Constraints*
+- ![Service Catalog in Multi-Account Scenario](images/service_catalog_multi_account_scenario.png)*Service Catalog in Multi-Account Scenario*
 
 ## Pro Tips
 - Acknowledge concerns and be ready with a process (Cloud Adoption Framework is a good start)

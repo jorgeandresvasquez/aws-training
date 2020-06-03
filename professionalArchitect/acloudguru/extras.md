@@ -69,5 +69,67 @@
 - With AWS WAF, you pay only for what you use. The pricing is based on how many rules you deploy and how many web requests your application receives. There are no upfront commitments.
 - You can deploy AWS WAF on Amazon CloudFront as part of your CDN solution, the Application Load Balancer that fronts your web servers or origin servers running on EC2, or Amazon API Gateway for your APIs.
 
+## EC2
+- Linux Amazon Machine Images use one of two types of virtualization: paravirtual (PV) or hardware virtual machine (HVM). The main differences between PV and HVM AMIs are the way in which they boot and whether they can take advantage of special hardware extensions (CPU, network, and storage) for better performance.
+- For the best performance, we recommend that you use current generation instance types and HVM AMIs when you launch your instances.
+- T2 instances are Burstable Performance Instances that provide a baseline level of CPU performance with the ability to burst above the baseline. The baseline performance and ability to burst are governed by CPU Credits. T2 instances accumulate CPU Credits when they are idle, and consume CPU Credits when they are active. T2 instances are the lowest-cost Amazon EC2 instance option designed to dramatically reduce costs for applications that benefit from the ability to burst to full core performance whenever required.
+- Cluster placement groups are recommended for applications that benefit from low network latency, high network throughput, or both, and if the majority of the network traffic is between the instances in the group.
+- Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on supported instance types.
+- EC2 instance types
+    - An instance type is an available configuration of CPU, memory, storage, and networking capacity
+    - F1
+        - Field Programmable Gate Array, reprogramming of chips after manufactured
+    - I3 
+        - High Speed Storage (IOPS)
+    - G3
+        - Graphics Intensive
+    - H1
+        - High Disk Throughput
+            - Data transfer rate to/from the storage media
+    - T3
+        - Lowest cost, general purpose (Think T2 Micro)
+        - Web Servers
+    - D2 
+        - Dense Storage
+    - R5
+        - RAM
+        - Memory Optimized
+    - M5 
+        - Main Choice for General Purpose
+    - C5
+        - Compute-Optimized
+    - P3
+        - General purpose GPU
+        - Pics for Graphics
+    - X1
+        - Memory Optimized
+        - Extreme Memory
+        - X1e was specifically created to run high performance databases
+    - Z1D
+        - High Compute Capacity and high memory footprunt
+    - A1
+        - ARM-based workloads
+    - U-6tb1
+        - Bare Metal
+    - FIGHTDRMCPXZAU
+    - The numbers of the instance types represent the generation
+
+## AWS Batch
+- As a fully managed service, AWS Batch enables you to run batch computing workloads of any scale. The key components of AWS Batch are as below:
+    1. Jobs: A unit of work (such as a shell script, a Linux executable, or a Docker container image) that you submit to AWS Batch.
+    1. Job Definitions: A job definition specifies how jobs are to be run; you can think of it as a blueprint for the resources in your job.
+    1. Job Queues: When you submit an AWS Batch job, you submit it to a particular job queue, where it resides until it is scheduled onto a compute environment.
+    1. Compute Environment: A compute environment is a set of managed or unmanaged compute resources that are used to run jobs.
+
+## Amazon Cognito
+- ![Using Cognito to Obtain temporary credentials](images/cognito_temporary_credentials.png)*Using Cognito to Obtain temporary credentials*
+    - If you're allowing unauthenticated users, you can retrieve a unique Amazon Cognito identifier (identity ID) for your end user immediately. If you're authenticating users, you can retrieve the identity ID after you've set the login tokens in the credentials provider
+
+## AWS Elemental MediaLive/MediaPackage
+- AWS provides a live streaming solution that combines AWS Elemental MediaLive and AWS Elemental MediaPackage with Amazon CloudFront to build a highly resilient and scalable architecture that delivers your live content worldwide.
+- ![AWS Live Streaming Video Architecture](images/live_streaming_video_architecture.png)*AWS Live Streaming Video Architecture*
+- GetHLSStreamingSessionURL API is called to retrieve the HLS streaming session URL. When you have the HLS streaming session URL, provide it to the video player which will be able to play the video.
+
+
 ## Other resources
 - https://d1.awsstatic.com/whitepapers/AWS_Serverless_Multi-Tier_Architectures.pdf

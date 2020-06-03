@@ -680,8 +680,8 @@ What architecture would allow you to automate the existing process through a hyb
 
 1. You’re running an application on-premises due to its dependency on non-x86 hardware and want to use AWS for data backup. Your backup application is only able to write to POSIX-compatible block-based storage. You have 624TB of data and would like to mount it as a single folder on your file server. Users must be able to access portions of this data while the backups are taking place. What backup solution would be most appropriate for this use case?
     - Answer:  Use Storage Gateway and configure it to use Gateway Cached volumes.
-    - Notes:
-        - 
+
+
 
 
 

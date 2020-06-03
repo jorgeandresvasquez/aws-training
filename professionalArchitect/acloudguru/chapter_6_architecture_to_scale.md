@@ -30,6 +30,11 @@
 - ![Application Autoscaling](images/application_autoscaling.png)
 - Predictive Scaling
     - Can dynamically scale based on learning your load and calculating expected capacity
+- For Amazon EC2 Auto Scaling, there are two primary process types: Launch and Terminate. The Launch process adds a new Amazon EC2 instance to an Auto Scaling group, increasing its capacity. The Terminate process removes an Amazon EC2 instance from the group, decreasing its capacity.
+- AutoScaling triggers the AZRebalance event if the number of instances in availability zones are not matching after terminating instances. If Autoscaling launches new instances before terminating the olds ones you can suspend the AZRebalance process of auto-scaling to avoid the rebalancing.
+    - When rebalancing, Amazon EC2 Auto Scaling launches new instances before terminating the old ones, so that rebalancing does not compromise the performance or availability of your application.
+
+    
 
 ## Kinesis
 - Collection of services for processing streams of various data
@@ -51,6 +56,11 @@
     - When reading from a shard, each shard supports output of 2 MB of data per second. 
     - You choose an initial number of shards to allocate for your Kinesis Data Stream, then can update your shard allocation over time. 
     - Increasing your shard allocation enables your application to easily scale from thousands of records to millions of records written per second.
+- Kinesis Video Stream
+    - The most straightforward way to view or live playback the video in Kinesis Video Streams is using HLS. `HTTP Live Streaming (HLS)` is an industry-standard HTTP-based media streaming communications protocol.
+    - Clients can use HLS for live playback. Use GetHLSStreamingSessionURL API to retrieve the HLS streaming session URL then provide the URL to a video player such as Google Shaka Player
+
+
 
 ## DynamoDB Scaling
 - ![DynamoDB Scaling](images/dynamodb_scaling.png)*DynamoDB Scaling*
@@ -135,6 +145,12 @@
 - At-least-once delivery
     - Amazon SQS stores copies of your messages on multiple servers for redundancy and high availability. On rare occasions, one of the servers that stores a copy of a message might be unavailable when you receive or delete a message.
     - If this occurs, the copy of the message isn't deleted on that unavailable server, and you might get that message copy again when you receive messages. Design your applications to be idempotent (they should not be affected adversely when processing the same message more than once).
+- FIFO queues:
+    - Features:
+        - First-In-First-Out Delivery:  The order in which messages are sent and received is strictly preserved
+        - Exactly-Once Processing:  A message is delivered once and remains available until a consumer processes and deletes it.  Duplicates are not introduced into the queue.
+    - The message group ID is a feature to help on the FIFO delivery. Messages that belong to the same message group are always processed one by one, in a strict order relative to the message group.
+- Deduplication ID is a method to help on preventing message to be processed duplicately, which is not used to guarantee the message order.
 
 ## AWS Lambda, Serverless Application Manager and EventBridge
 - AWS Lambda
@@ -219,6 +235,7 @@
 
 ## Sample Questions Notes
 - Autoscaling Launch configurations cannot be edited
+- An unused AutoScaling launch configuration will not cost anything.
 - Step Scaling Policies don't have a cool down period, they rather have a warm-up period where you can specify how long to allow your new instances to come up before another step scale can be triggered
 - Detailed monitoring allows granularity of 1 minute measurements, basic monitoring has a granularity of 5 minutes
 - You are designing a DynamoDB datastore to record electric meter readings from millions of homes once a week. We share on our website weekly live electric consumption charts based of this data so the week must be part of the primary key. How might we design our datastore for optimal efficiency?

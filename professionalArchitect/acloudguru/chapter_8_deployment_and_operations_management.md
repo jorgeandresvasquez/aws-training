@@ -56,6 +56,7 @@
 - Great for ease of deployment, but not great if you need lots of control and flexibility
 - ![Elastic Beanstalk Deployment Options](images/elastic_beanstalk_deployment_options.png)*Elastic Beanstalk Deployment Options*
     - Special Option to swap the URLs and point to the new version, if we have problems we can swap the URLs back
+- You simply upload code and Elastic Beanstalk automatically handles the deployment, from capacity provisioning, load balancing, auto-scaling to application health monitoring. Meanwhile we can retain full control over the AWS resources used in the application and can access the underlying resources at any time.
 
 ## CloudFormation
 - Infrastructure As Code
@@ -81,6 +82,20 @@
     - Make use of Change Sets to identify potential trouble spots in your updates
     - Use Stack Policies to explicitly protect sensitive portions of your stack
     - Use a version control system such as CodeCommit or GitHub to track changes to templates
+- Template anatomy
+    - AWSTemplateFormatVersion
+    - Description
+    - Metadata
+    - Parameters
+    - Mappings
+    - Conditions
+        -  Includes statements that define when a resource is created or when a property is defined. For example, you can compare whether a value is equal to another value. Based on the result of that condition, you can conditionally create resources. If you have multiple conditions, separate them with commas
+        - You might use conditions when you want to reuse a template that can create resources in different contexts, such as a test environment versus a production environment. In your template, you can add an EnvironmentType input parameter, which accepts either prod or test as inputs. For the production environment, you might include Amazon EC2 instances with certain capabilities; however, for the test environment, you want to use reduced capabilities to save money. With conditions, you can define which resources are created and how they're configured for each environment type.
+        - Conditions are evaluated based on input parameter values that you specify when you create or update a stack. Within each condition, you can reference another condition, a parameter value, or a mapping. After you define all your conditions, you can associate them with resources and resource properties in the Resources and outputs sections of a template.
+    - Transform
+    - Resources
+    - Outputs
+
 
 ## Elastic Container Service
 - ![ECS/EKS Comparison](images/ecs_eks_comparison.png)*ECS/EKS Comparison*
@@ -94,6 +109,13 @@
 - Using Cloudfront behind the scenes and custom domains and SNI are supported
 - Can be published as products and monetized on AWS marketplace
 - Can Cache responses
+- There are multiple mechanisms that can be used to control access to the API in API gateway.:
+    - `Resource policies` let you create resource-based policies to allow or deny access to your APIs and methods from specified source IP addresses or VPC endpoints. It can be configured in the API Gateway console:
+    - `Standard AWS IAM roles` and policies offer flexible and robust access controls that can be applied to an entire API or individual methods.
+    - `Lambda authorizers` are Lambda functions that control access to REST API methods using bearer token authentication as well as information described by headers, paths, query strings, stage variables, or context variables request parameters.
+    - `Amazon Cognito user pools` let you create customizable authentication and authorization solutions for your REST APIs.
+- ![API Gateway Parts](images/api_gateway_parts.png)*API Gateway Parts*
+    - Method Request/Method Response are part mainly deal with API gateways and they are the API's interface with the API's frontend (a client), whereas Integration Request and Integration Response are the API's interface with the backend.
 
 ## Management Tools
 - AWS Config
